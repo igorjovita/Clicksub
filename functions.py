@@ -1,5 +1,6 @@
 import mysql.connector
 import os
+import streamlit as st
 
 mydb = mysql.connector.connect(
     host=os.getenv("DB_HOST"),
@@ -24,6 +25,6 @@ def select_planilha_acqua(data):
 
 
 def pressionar():
-    st.session_state.botao_pressionado = True
+    st.session_state.botao = True
     # Atualize a lista de itens selecionados com os IDs correspondentes
     st.session_state.selected_items = st.session_state.df_state[st.session_state.df_state['Selecionar']].index.tolist()
