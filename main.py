@@ -62,13 +62,13 @@ if st.session_state.botao:
                 with col4:
                     valor = st.text_input('Valor', key=f'Valor {i}')
 
-            if st.form_submit_button('Lançar Pagamento'):
-                if telefone != telefone_coluna:
-                    st.write(telefone)
-                    st.write(cliente)
-                id_cliente = st.session_state.df_state.loc[cliente, 'ID']
+                if st.form_submit_button('Lançar Pagamento'):
+                    if telefone != telefone_coluna:
+                        st.write(telefone)
+                        st.write(cliente)
+                    id_cliente = st.session_state.df_state.loc[cliente, 'ID']
 
-                st.write(id_cliente)
-                st.session_state.lista_pagamento.append((id_cliente, pacote, pagamento, valor))
+                    st.write(id_cliente)
+                    st.session_state.lista_pagamento.append((id_cliente, pacote, pagamento, valor))
 
                 st.write(st.session_state.lista_pagamento)
