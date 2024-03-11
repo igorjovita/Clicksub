@@ -49,42 +49,42 @@ if st.session_state.botao:
 
             with st.form(f'{cliente} Foto'):
 
-                if cliente not in st.session_state.lista_pagamento:
-                    st.subheader(f'{cliente} - {tipo}')
 
-                    col1, col2, col3, col4 = st.columns(4)
+                st.subheader(f'{cliente} - {tipo}')
 
-                    with col1:
-                        telefone_coluna = st.session_state.df_state.loc[
-                            st.session_state.df_state['Nome'] == cliente, 'Telefone'].values[0]
-                        telefone = st.text_input('Telefone', telefone_coluna)
+                col1, col2, col3, col4 = st.columns(4)
 
-                    with col2:
-                        pacote = st.selectbox('Pacotes', ['FOTO 5', 'FOTO 10', 'VIDEO', 'FOTO + VIDEO'], index=None,
-                                              key=f'Pacote {i}')
+                with col1:
+                    telefone_coluna = st.session_state.df_state.loc[
+                        st.session_state.df_state['Nome'] == cliente, 'Telefone'].values[0]
+                    telefone = st.text_input('Telefone', telefone_coluna)
 
-                    with col3:
-                        pagamento = st.selectbox('Forma Pagamento', ['Dinheiro', 'Pix', 'Debito'], index=None,
-                                                 key=f'Pagamento {i}')
+                with col2:
+                    pacote = st.selectbox('Pacotes', ['FOTO 5', 'FOTO 10', 'VIDEO', 'FOTO + VIDEO'], index=None,
+                                          key=f'Pacote {i}')
 
-                    with col4:
-                        valor = st.text_input('Valor', key=f'Valor {i}')
+                with col3:
+                    pagamento = st.selectbox('Forma Pagamento', ['Dinheiro', 'Pix', 'Debito'], index=None,
+                                             key=f'Pagamento {i}')
 
-                    if st.form_submit_button('Lançar Pagamento'):
+                with col4:
+                    valor = st.text_input('Valor', key=f'Valor {i}')
 
-                        id_cliente = st.session_state.df_state.loc[st.session_state.df_state['Nome'] == cliente].index[
-                            0]
+                if st.form_submit_button('Lançar Pagamento'):
 
-                        if telefone != telefone_coluna:
-                            st.write(telefone)
-                            st.write(cliente)
-                            update_telefone(id_cliente, telefone)
+                    id_cliente = st.session_state.df_state.loc[st.session_state.df_state['Nome'] == cliente].index[
+                        0]
 
-                        id_reserva = int(df.loc[df['Nome'] == cliente, 'Id reserva'].values[0])
+                    if telefone != telefone_coluna:
+                        st.write(telefone)
+                        st.write(cliente)
+                        update_telefone(id_cliente, telefone)
 
-                        insert_clicksub(id_reserva, pacote, pagamento, valor)
-                        update_foto_reserva(id_reserva, pacote)
-                        st.session_state.lista_pagamento.append(cliente)
+                    id_reserva = int(df.loc[df['Nome'] == cliente, 'Id reserva'].values[0])
+
+                    insert_clicksub(id_reserva, pacote, pagamento, valor)
+                    update_foto_reserva(id_reserva, pacote)
+
 # Capture uma captura de memória
 snapshot = tracemalloc.take_snapshot()
 

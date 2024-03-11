@@ -1,13 +1,6 @@
-pandas~=2.1.2
-mysql-connector-python~=8.2.0
+pandas
+mysql-connector-python
 streamlit-option-menu
-dotenv-python
-pdfkit~=1.0.0
-jinja2~=3.1.2
-google-auth
-google-cloud
-google-cloud-storage
-google
 babel
-streamlit==1.31.0
+streamlit
 pip>=24.0
