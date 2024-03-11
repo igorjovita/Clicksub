@@ -39,7 +39,7 @@ if st.session_state.botao:
 
             with col2:
                 telefone_coluna = st.session_state.df_state.loc[
-                    st.session_state.df_state['Nome'] == cliente, 'Telefone']
+                    st.session_state.df_state['Nome'] == cliente, 'Telefone'].tolist()
                 st.write(telefone_coluna)
 
         st.write(clientes)
