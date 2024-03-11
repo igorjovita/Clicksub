@@ -40,9 +40,13 @@ if st.session_state.botao:
             with col2:
                 telefone_coluna = st.session_state.df_state.loc[
                     st.session_state.df_state['Nome'] == cliente, 'Telefone'].to_string(index=False)
-                st.text_input('Telefone',telefone_coluna)
+                st.text_input('Telefone', telefone_coluna)
 
-        st.write(clientes)
+            with col3:
+                tipo = st.session_state.df_state.loc[
+                    st.session_state.df_state['Nome'] == cliente, 'Tipo'].to_string(index=False)
+
+                st.text_input('Tipo', tipo)
 
 
 
