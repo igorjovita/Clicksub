@@ -20,3 +20,16 @@ if st.session_state.botao:
     df.insert(0, 'Selecionar', [False] * len(df))
 
     st.data_editor(df, hide_index=True)
+
+    if len(st.session_state.df_state.loc[st.session_state.df_state['Selecionar']]) > 0:
+        st.write('---')
+        cliente = st.session_state.df_state.loc[st.session_state.df_state['Selecionar'], 'Nome']
+
+        st.write(cliente)
+
+
+
+
+
+
+
