@@ -32,26 +32,22 @@ if st.session_state.botao:
         clientes = (st.session_state.df_state.loc[st.session_state.df_state['Selecionar'], 'Nome']).tolist()
 
         for i, cliente in enumerate(clientes):
-            col1, col2, col3, col4 = st.columns(4)
+
             tipo = st.session_state.df_state.loc[
                 st.session_state.df_state['Nome'] == cliente, 'Tipo'].to_string(index=False)
 
-
             st.subheader(f'{cliente} - {tipo}')
 
+            col1, col2, col3, col4 = st.columns(4)
 
             with col1:
                 telefone_coluna = st.session_state.df_state.loc[
                     st.session_state.df_state['Nome'] == cliente, 'Telefone'].to_string(index=False)
                 st.text_input('Telefone', telefone_coluna)
 
-
-
             with col2:
                 pacote = st.selectbox('Pacotes', ['FOTO 5', 'FOTO 10', 'VIDEO', 'FOTO + VIDEO'], index=None,
                                       key=f'Pacote {i}')
-
-
 
             with col3:
                 pagamento = st.selectbox('Forma Pagamento', ['Dinheiro', 'Pix', 'Debito'], index=None,
