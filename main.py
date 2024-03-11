@@ -40,7 +40,7 @@ if st.session_state.botao:
 
             tipo = st.session_state.df_state.loc[
                 st.session_state.df_state['Nome'] == cliente, 'Tipo'].values[0]
-            
+
 
             with st.form('Clientes Foto'):
                 st.subheader(f'{cliente} - {tipo}')
@@ -67,8 +67,7 @@ if st.session_state.botao:
                     if telefone != telefone_coluna:
                         st.write(telefone)
                         st.write(cliente)
-                    id_cliente = st.session_state.df_state.loc[
-                        st.session_state.df_state['Nome'] == cliente, 'ID'].to_string(index=False)
+                    id_cliente = st.session_state.df_state.loc[cliente].name
 
                     st.write(id_cliente)
                     st.session_state.lista_pagamento.append((id_cliente, pacote, pagamento, valor))
