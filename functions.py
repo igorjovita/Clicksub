@@ -21,3 +21,9 @@ def select_planilha_acqua(data):
     mydb.close()
 
     return dados
+
+
+def pressionar():
+    st.session_state.botao_pressionado = True
+    # Atualize a lista de itens selecionados com os IDs correspondentes
+    st.session_state.selected_items = st.session_state.df_state[st.session_state.df_state['Selecionar']].index.tolist()

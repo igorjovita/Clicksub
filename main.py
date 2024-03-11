@@ -1,14 +1,13 @@
 import streamlit as st
 import pandas as pd
-from functions import select_planilha_acqua
+from functions import select_planilha_acqua, pressionar
 
 st.subheader('Click Sub')
 
-if 'botao' not in st.session_state:
-    st.session_state.botao = False
+
 
 data_reserva = st.date_input('Data da panilha', format='DD/MM/YYYY')
-if st.button('Pesquisar'):
+if st.button('Pesquisar', on_click=pressionar()):
     st.session_state.botao = True
 
 if st.session_state.botao:
