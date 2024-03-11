@@ -4,8 +4,14 @@ from functions import select_planilha_acqua
 
 st.subheader('Click Sub')
 
+if 'botao' not in st.session_state:
+    st.session_state.botao = False
+
 data_reserva = st.date_input('Data da panilha', format='DD/MM/YYYY')
 if st.button('Pesquisar'):
+    st.session_state.botao = True
+
+if st.session_state.botao:
 
     dados = select_planilha_acqua(data_reserva)
 
