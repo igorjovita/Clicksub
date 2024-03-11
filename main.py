@@ -14,7 +14,7 @@ if st.button('Pesquisar', on_click=pressionar):
 state = st.session_state
 
 if 'df_state' not in state:
-    state.df_state = pd.DataFrame(columns=['Nome', 'Telefone', 'Comissario', 'Tipo', 'Fotos'])
+    state.df_state = pd.DataFrame(columns=['Selecionar','Nome', 'Telefone', 'Comissario', 'Tipo', 'Fotos'])
 
 if st.session_state.botao:
 
