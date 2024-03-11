@@ -7,7 +7,7 @@ st.subheader('Click Sub')
 
 
 data_reserva = st.date_input('Data da panilha', format='DD/MM/YYYY')
-if st.button('Pesquisar', on_click=pressionar()):
+if st.button('Pesquisar', on_click=pressionar):
     st.session_state.botao = True
 
 if st.session_state.botao:
