@@ -11,6 +11,8 @@ if 'lista_pagamento' not in st.session_state:
     st.session_state.lista_pagamento = []
 
 data_reserva = st.date_input('Data da panilha', format='DD/MM/YYYY')
+dados = select_planilha_acqua(data_reserva)
+
 if st.button('Pesquisar', on_click=pressionar):
     st.session_state.botao = True
 
@@ -21,8 +23,6 @@ if 'df_state' not in state:
         columns=['Selecionar', 'ID', 'Id reserva', 'Nome', 'Telefone', 'Comissario', 'Tipo', 'Fotos'])
 
 if st.session_state.botao:
-
-    dados = select_planilha_acqua(data_reserva)
 
     df = pd.DataFrame(dados, columns=['ID', 'Id reserva', 'Nome', 'Telefone', 'Comissario', 'Tipo', 'Fotos'])
 
