@@ -32,22 +32,32 @@ if st.session_state.botao:
         clientes = (st.session_state.df_state.loc[st.session_state.df_state['Selecionar'], 'Nome']).tolist()
 
         for i, cliente in enumerate(clientes):
-            col1, col2, col3 = st.columns(3)
+            col1, col2, col3, col4 = st.columns(4)
+            tipo = st.session_state.df_state.loc[
+                st.session_state.df_state['Nome'] == cliente, 'Tipo'].to_string(index=False)
+
+
+            st.subheader(f'{cliente} - {tipo}')
+
 
             with col1:
-                st.text_input('Nome Cliente', value=cliente)
-                pacote = st.selectbox('Pacotes', ['FOTO 5', 'FOTO 10', 'VIDEO', 'FOTO + VIDEO'], index=None, key=f'Pacote {i}')
-
-            with col2:
                 telefone_coluna = st.session_state.df_state.loc[
                     st.session_state.df_state['Nome'] == cliente, 'Telefone'].to_string(index=False)
                 st.text_input('Telefone', telefone_coluna)
-                pagamento = st.selectbox('Forma Pagamento', ['Dinheiro', 'Pix', 'Debito'], index=None, key=f'Pagamento {i}')
+
+
+
+            with col2:
+                pacote = st.selectbox('Pacotes', ['FOTO 5', 'FOTO 10', 'VIDEO', 'FOTO + VIDEO'], index=None,
+                                      key=f'Pacote {i}')
+
+
 
             with col3:
-                tipo = st.session_state.df_state.loc[
-                    st.session_state.df_state['Nome'] == cliente, 'Tipo'].to_string(index=False)
+                pagamento = st.selectbox('Forma Pagamento', ['Dinheiro', 'Pix', 'Debito'], index=None,
+                                         key=f'Pagamento {i}')
 
+            with col4:
                 valor = 0
 
                 if pagamento == 'Debito':
@@ -65,7 +75,6 @@ if st.session_state.botao:
                 elif pacote == 'FOTO + VIDEO':
                     valor += 160
 
-                st.text_input('Tipo', tipo, key=f'Tipo {i}')
                 st.text_input('Valor', valor, key=f'Valor {i}')
 
 
