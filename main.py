@@ -36,18 +36,37 @@ if st.session_state.botao:
 
             with col1:
                 st.text_input('Nome Cliente', value=cliente)
+                pacote = st.selectbox('Pacotes', ['FOTO 5', 'FOTO 10', 'VIDEO', 'FOTO + VIDEO'], index=None)
 
             with col2:
                 telefone_coluna = st.session_state.df_state.loc[
                     st.session_state.df_state['Nome'] == cliente, 'Telefone'].to_string(index=False)
                 st.text_input('Telefone', telefone_coluna)
+                pagamento = st.selectbox('Forma Pagamento', ['Dinheiro', 'Pix', 'Debito'], index=None)
 
             with col3:
                 tipo = st.session_state.df_state.loc[
                     st.session_state.df_state['Nome'] == cliente, 'Tipo'].to_string(index=False)
 
-                st.text_input('Tipo', tipo)
+                valor = 0
 
+                if pagamento == 'Debito':
+                    valor += 5
+
+                if pacote == 'FOTO 5':
+                    valor += 70
+
+                elif pacote == 'FOTO 10':
+                    valor += 80
+
+                elif pacote == 'VIDEO':
+                    valor += 90
+
+                elif pacote == 'FOTO + VIDEO':
+                    valor += 160
+
+                st.text_input('Tipo', tipo)
+                st.text_input('Valor', valor)
 
 
 
