@@ -73,7 +73,7 @@ if st.session_state.botao:
                         st.write(cliente)
                         update_telefone(id_cliente, telefone)
 
-                    id_reserva = df.loc[df['Nome'] == cliente, 'Id reserva']
+                    id_reserva = df.loc[df['Nome'] == cliente, 'Id reserva'].values[0]
 
                     st.write(f'Id reserva - {id_reserva}')
 
