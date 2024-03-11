@@ -35,7 +35,7 @@ def create_clicksub():
 def insert_clicksub(id_reserva, pacote, forma_pg, valor):
     mydb.connect()
 
-    cursor.execute("INSERT INTO pagamento_clicksub (id_reserva, pacote, forma_pg, valor) VALUES (%s, %s, %s, %s)",(id_reserva, pacote, forma_pg, valor))
+    cursor.execute("INSERT INTO pagamento_clicksub (id_reserva, pacote, forma_pg, valor) VALUES (%s, %s, %s, %s)", (id_reserva, pacote, forma_pg, valor))
 
     mydb.close()
 

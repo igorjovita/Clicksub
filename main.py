@@ -83,7 +83,7 @@ if st.session_state.botao:
                         st.write(pagamento)
                         st.write(valor)
 
-                        insert_clicksub(int(id_reserva), pacote, pagamento, valor)
+                        insert_clicksub(int(id_reserva), pacote, pagamento, int(valor))
                         update_foto_reserva(id_reserva, pacote)
                         st.session_state.lista_pagamento.append(cliente)
                         st.rerun()
