@@ -62,3 +62,21 @@ def update_telefone(id_cliente, telefone):
     mydb.close()
 
 
+def update_foto_reserva(id_reserva, pacote):
+    mydb.connect()
+    foto = ''
+    if pacote == 'FOTO 5':
+        foto = 'F5'
+    elif pacote == 'FOTO 10':
+        foto = 'F10'
+    elif pacote == 'VIDEO':
+        foto = 'Video'
+    elif pacote == 'FOTO + VIDEO':
+        foto = 'F/V'
+
+    cursor.execute("UPDATE reserva set fotos = %s where id = %s", (foto, id_reserva))
+
+    mydb.close()
+
+
+

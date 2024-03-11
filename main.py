@@ -1,6 +1,6 @@
 import streamlit as st
 import pandas as pd
-from functions import select_planilha_acqua, pressionar, update_telefone
+from functions import select_planilha_acqua, pressionar, update_telefone, insert_clicksub, update_foto_reserva
 
 st.subheader('Click Sub')
 
@@ -17,7 +17,8 @@ if st.button('Pesquisar', on_click=pressionar):
 state = st.session_state
 
 if 'df_state' not in state:
-    state.df_state = pd.DataFrame(columns=['Selecionar', 'ID', 'Id reserva', 'Nome', 'Telefone', 'Comissario', 'Tipo', 'Fotos'])
+    state.df_state = pd.DataFrame(
+        columns=['Selecionar', 'ID', 'Id reserva', 'Nome', 'Telefone', 'Comissario', 'Tipo', 'Fotos'])
 
 if st.session_state.botao:
 
@@ -42,44 +43,42 @@ if st.session_state.botao:
             tipo = st.session_state.df_state.loc[
                 st.session_state.df_state['Nome'] == cliente, 'Tipo'].values[0]
 
-
             with st.form('Clientes Foto'):
-                st.subheader(f'{cliente} - {tipo}')
 
-                col1, col2, col3, col4 = st.columns(4)
+                if cliente not in st.session_state.lista_pagamento:
+                    st.subheader(f'{cliente} - {tipo}')
 
-                with col1:
-                    telefone_coluna = st.session_state.df_state.loc[
-                        st.session_state.df_state['Nome'] == cliente, 'Telefone'].values[0]
-                    telefone = st.text_input('Telefone', telefone_coluna)
+                    col1, col2, col3, col4 = st.columns(4)
 
-                with col2:
-                    pacote = st.selectbox('Pacotes', ['FOTO 5', 'FOTO 10', 'VIDEO', 'FOTO + VIDEO'], index=None,
-                                          key=f'Pacote {i}')
+                    with col1:
+                        telefone_coluna = st.session_state.df_state.loc[
+                            st.session_state.df_state['Nome'] == cliente, 'Telefone'].values[0]
+                        telefone = st.text_input('Telefone', telefone_coluna)
 
-                with col3:
-                    pagamento = st.selectbox('Forma Pagamento', ['Dinheiro', 'Pix', 'Debito'], index=None,
-                                             key=f'Pagamento {i}')
+                    with col2:
+                        pacote = st.selectbox('Pacotes', ['FOTO 5', 'FOTO 10', 'VIDEO', 'FOTO + VIDEO'], index=None,
+                                              key=f'Pacote {i}')
 
-                with col4:
-                    valor = st.text_input('Valor', key=f'Valor {i}')
+                    with col3:
+                        pagamento = st.selectbox('Forma Pagamento', ['Dinheiro', 'Pix', 'Debito'], index=None,
+                                                 key=f'Pagamento {i}')
 
-                if st.form_submit_button('Lançar Pagamento'):
+                    with col4:
+                        valor = st.text_input('Valor', key=f'Valor {i}')
 
-                    id_cliente = st.session_state.df_state.loc[st.session_state.df_state['Nome'] == cliente].index[0]
+                    if st.form_submit_button('Lançar Pagamento'):
 
-                    if telefone != telefone_coluna:
-                        st.write(telefone)
-                        st.write(cliente)
-                        update_telefone(id_cliente, telefone)
+                        id_cliente = st.session_state.df_state.loc[st.session_state.df_state['Nome'] == cliente].index[
+                            0]
 
-                    id_reserva = df.loc[df['Nome'] == cliente, 'Id reserva'].values[0]
+                        if telefone != telefone_coluna:
+                            st.write(telefone)
+                            st.write(cliente)
+                            update_telefone(id_cliente, telefone)
 
-                    st.write(f'Id reserva - {id_reserva}')
+                        id_reserva = df.loc[df['Nome'] == cliente, 'Id reserva'].values[0]
 
-
-
-                    st.write(id_cliente)
-                    st.session_state.lista_pagamento.append((id_cliente, pacote, pagamento, valor))
-
-                    st.write(st.session_state.lista_pagamento)
+                        insert_clicksub(id_reserva, pacote, pagamento, valor)
+                        update_foto_reserva(id_reserva, pacote)
+                        st.session_state.lista_pagamento.append(cliente)
+                        st.rerun()
