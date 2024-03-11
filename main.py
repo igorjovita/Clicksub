@@ -67,7 +67,8 @@ if st.session_state.botao:
                     if telefone != telefone_coluna:
                         st.write(telefone)
                         st.write(cliente)
-                    id_cliente = st.session_state.df_state.loc[cliente].name
+
+                    id_cliente = st.session_state.df_state.loc[st.session_state.df_state['Nome'] == cliente].index[0]
 
                     st.write(id_cliente)
                     st.session_state.lista_pagamento.append((id_cliente, pacote, pagamento, valor))
