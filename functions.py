@@ -83,7 +83,7 @@ def update_foto_reserva(id_reserva, pacote):
         st.error(f"Erro ao atualizar a reserva: {err}")
 
     finally:
-        
+
         mydb.close()
 
 

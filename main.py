@@ -2,6 +2,10 @@ import streamlit as st
 import pandas as pd
 from functions import select_planilha_acqua, pressionar, update_telefone, insert_clicksub, update_foto_reserva
 
+import tracemalloc
+
+tracemalloc.start()
+
 st.subheader('Click Sub')
 
 if 'botao' not in st.session_state:
@@ -81,4 +85,9 @@ if st.session_state.botao:
                         insert_clicksub(id_reserva, pacote, pagamento, valor)
                         update_foto_reserva(id_reserva, pacote)
                         st.session_state.lista_pagamento.append(cliente)
+# Capture uma captura de memória
+snapshot = tracemalloc.take_snapshot()
 
+top_stats = snapshot.statistics('lineno')
+for stat in top_stats[:10]:
+    print(stat)
