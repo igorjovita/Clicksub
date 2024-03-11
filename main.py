@@ -39,7 +39,7 @@ if st.session_state.botao:
         for i, cliente in enumerate(clientes):
 
             tipo = st.session_state.df_state.loc[
-                st.session_state.df_state['Nome'] == cliente, 'Tipo'].to_string(index=False)
+                st.session_state.df_state['Nome'] == cliente, 'Tipo'].to_string(index=False).values[0]
 
             with st.form('Clientes Foto'):
                 st.subheader(f'{cliente} - {tipo}')
@@ -48,7 +48,7 @@ if st.session_state.botao:
 
                 with col1:
                     telefone_coluna = st.session_state.df_state.loc[
-                        st.session_state.df_state['Nome'] == cliente, 'Telefone'].to_string(index=False)
+                        st.session_state.df_state['Nome'] == cliente, 'Telefone'].to_string(index=False).values[0]
                     telefone = st.text_input('Telefone', telefone_coluna)
 
                 with col2:
