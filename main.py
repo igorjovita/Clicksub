@@ -1,6 +1,6 @@
 import streamlit as st
 import pandas as pd
-from functions import select_planilha_acqua, pressionar
+from functions import select_planilha_acqua, pressionar, update_telefone
 
 st.subheader('Click Sub')
 
@@ -17,15 +17,16 @@ if st.button('Pesquisar', on_click=pressionar):
 state = st.session_state
 
 if 'df_state' not in state:
-    state.df_state = pd.DataFrame(columns=['Selecionar', 'ID', 'Nome', 'Telefone', 'Comissario', 'Tipo', 'Fotos'])
+    state.df_state = pd.DataFrame(columns=['Selecionar', 'ID', 'Id reserva', 'Nome', 'Telefone', 'Comissario', 'Tipo', 'Fotos'])
 
 if st.session_state.botao:
 
     dados = select_planilha_acqua(data_reserva)
 
-    df = pd.DataFrame(dados, columns=['ID', 'Nome', 'Telefone', 'Comissario', 'Tipo', 'Fotos'])
+    df = pd.DataFrame(dados, columns=['ID', 'Id reserva', 'Nome', 'Telefone', 'Comissario', 'Tipo', 'Fotos'])
 
     df.insert(0, 'Selecionar', [False] * len(df))
+    df = df.drop(columns=['Id reserva'])
     state.df_state = df
 
     st.session_state.df_state.set_index('ID', inplace=True)
@@ -64,11 +65,19 @@ if st.session_state.botao:
                     valor = st.text_input('Valor', key=f'Valor {i}')
 
                 if st.form_submit_button('Lançar Pagamento'):
+
+                    id_cliente = st.session_state.df_state.loc[st.session_state.df_state['Nome'] == cliente].index[0]
+
                     if telefone != telefone_coluna:
                         st.write(telefone)
                         st.write(cliente)
+                        update_telefone(id_cliente, telefone)
 
-                    id_cliente = st.session_state.df_state.loc[st.session_state.df_state['Nome'] == cliente].index[0]
+                    id_reserva = df.loc[df['Nome'] == cliente, 'Id reserva']
+
+                    st.write(f'Id reserva - {id_reserva}')
+
+
 
                     st.write(id_cliente)
                     st.session_state.lista_pagamento.append((id_cliente, pacote, pagamento, valor))
