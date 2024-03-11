@@ -28,6 +28,8 @@ if st.session_state.botao:
     df.insert(0, 'Selecionar', [False] * len(df))
     state.df_state = df
 
+    st.session_state.df_state.set_index('ID', inplace=True)
+
     state.df_state = st.data_editor(state.df_state, hide_index=True)
 
     if len(st.session_state.df_state.loc[st.session_state.df_state['Selecionar']]) > 0:
