@@ -7,6 +7,9 @@ st.subheader('Click Sub')
 if 'botao' not in st.session_state:
     st.session_state.botao = False
 
+if 'lista_pagamento' not in st.session_state:
+    st.session_state.lista_pagamento = []
+
 data_reserva = st.date_input('Data da panilha', format='DD/MM/YYYY')
 if st.button('Pesquisar', on_click=pressionar):
     st.session_state.botao = True
@@ -14,13 +17,13 @@ if st.button('Pesquisar', on_click=pressionar):
 state = st.session_state
 
 if 'df_state' not in state:
-    state.df_state = pd.DataFrame(columns=['Selecionar','Nome', 'Telefone', 'Comissario', 'Tipo', 'Fotos'])
+    state.df_state = pd.DataFrame(columns=['Selecionar', 'ID', 'Nome', 'Telefone', 'Comissario', 'Tipo', 'Fotos'])
 
 if st.session_state.botao:
 
     dados = select_planilha_acqua(data_reserva)
 
-    df = pd.DataFrame(dados, columns=['Nome', 'Telefone', 'Comissario', 'Tipo', 'Fotos'])
+    df = pd.DataFrame(dados, columns=['ID', 'Nome', 'Telefone', 'Comissario', 'Tipo', 'Fotos'])
 
     df.insert(0, 'Selecionar', [False] * len(df))
     state.df_state = df
@@ -36,45 +39,35 @@ if st.session_state.botao:
             tipo = st.session_state.df_state.loc[
                 st.session_state.df_state['Nome'] == cliente, 'Tipo'].to_string(index=False)
 
-            st.subheader(f'{cliente} - {tipo}')
+            with st.form('Clientes Foto'):
+                st.subheader(f'{cliente} - {tipo}')
 
-            col1, col2, col3, col4 = st.columns(4)
+                col1, col2, col3, col4 = st.columns(4)
 
-            with col1:
-                telefone_coluna = st.session_state.df_state.loc[
-                    st.session_state.df_state['Nome'] == cliente, 'Telefone'].to_string(index=False)
-                st.text_input('Telefone', telefone_coluna)
+                with col1:
+                    telefone_coluna = st.session_state.df_state.loc[
+                        st.session_state.df_state['Nome'] == cliente, 'Telefone'].to_string(index=False)
+                    telefone = st.text_input('Telefone', telefone_coluna)
 
-            with col2:
-                pacote = st.selectbox('Pacotes', ['FOTO 5', 'FOTO 10', 'VIDEO', 'FOTO + VIDEO'], index=None,
-                                      key=f'Pacote {i}')
+                with col2:
+                    pacote = st.selectbox('Pacotes', ['FOTO 5', 'FOTO 10', 'VIDEO', 'FOTO + VIDEO'], index=None,
+                                          key=f'Pacote {i}')
 
-            with col3:
-                pagamento = st.selectbox('Forma Pagamento', ['Dinheiro', 'Pix', 'Debito'], index=None,
-                                         key=f'Pagamento {i}')
+                with col3:
+                    pagamento = st.selectbox('Forma Pagamento', ['Dinheiro', 'Pix', 'Debito'], index=None,
+                                             key=f'Pagamento {i}')
 
-            with col4:
-                valor = 0
+                with col4:
+                    valor = st.text_input('Valor', key=f'Valor {i}')
 
-                if pagamento == 'Debito':
-                    valor += 5
+            if st.form_submit_button('Lançar Pagamento'):
+                if telefone != telefone_coluna:
+                    st.write(telefone)
+                    st.write(cliente)
+                id_cliente = st.session_state.df_state.loc[
+                    st.session_state.df_state['Nome'] == cliente, 'ID'].to_string(index=False)
 
-                if pacote == 'FOTO 5':
-                    valor += 70
+                st.write(id_cliente)
+                st.session_state.lista_pagamento.append((id_cliente, pacote, pagamento, valor))
 
-                elif pacote == 'FOTO 10':
-                    valor += 80
-
-                elif pacote == 'VIDEO':
-                    valor += 90
-
-                elif pacote == 'FOTO + VIDEO':
-                    valor += 160
-
-                st.text_input('Valor', valor, key=f'Valor {i}')
-
-
-
-
-
-
+                st.write(st.session_state.lista_pagamento)
