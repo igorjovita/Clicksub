@@ -26,8 +26,8 @@ if st.session_state.botao:
     df = pd.DataFrame(dados, columns=['ID', 'Id reserva', 'Nome', 'Telefone', 'Comissario', 'Tipo', 'Fotos'])
 
     df.insert(0, 'Selecionar', [False] * len(df))
-    df = df.drop(columns=['Id reserva'])
-    state.df_state = df
+    df_sem_id_reserva = df.drop(columns=['Id reserva'])
+    state.df_state = df_sem_id_reserva
 
     st.session_state.df_state.set_index('ID', inplace=True)
 
