@@ -37,6 +37,11 @@ if st.session_state.botao:
             with col1:
                 st.text_input('Nome Cliente', value=cliente)
 
+            with col2:
+                telefone_coluna = st.session_state.df_state.loc[
+                    st.session_state.df_state['Nome'] == cliente, 'Telefone']
+                st.text_input('Telefone', telefone_coluna)
+
         st.write(clientes)
 
 
