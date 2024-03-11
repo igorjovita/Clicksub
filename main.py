@@ -78,7 +78,7 @@ if st.session_state.botao:
 
                         id_reserva = df.loc[df['Nome'] == cliente, 'Id reserva'].values[0]
 
-                        insert_clicksub(id_reserva, pacote, pagamento, valor)
+                        insert_clicksub(int(id_reserva), pacote, pagamento, valor)
                         update_foto_reserva(id_reserva, pacote)
                         st.session_state.lista_pagamento.append(cliente)
                         st.rerun()
