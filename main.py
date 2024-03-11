@@ -62,7 +62,7 @@ if st.session_state.botao:
                 with col4:
                     valor = st.text_input('Valor', key=f'Valor {i}')
 
-                if st.form_submit_button('Lançar Pagamento', key=f'botao {i}'):
+                if st.form_submit_button('Lançar Pagamento'):
                     if telefone != telefone_coluna:
                         st.write(telefone)
                         st.write(cliente)
