@@ -40,6 +40,7 @@ if st.session_state.botao:
 
             tipo = st.session_state.df_state.loc[
                 st.session_state.df_state['Nome'] == cliente, 'Tipo'].values[0]
+            
 
             with st.form('Clientes Foto'):
                 st.subheader(f'{cliente} - {tipo}')
