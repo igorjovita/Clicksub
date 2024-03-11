@@ -1,7 +1,6 @@
 import mysql.connector
 import os
 
-
 mydb = mysql.connector.connect(
     host=os.getenv("DB_HOST"),
     user=os.getenv("DB_USERNAME"),
