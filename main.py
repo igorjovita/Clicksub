@@ -29,7 +29,7 @@ if st.session_state.botao:
 
     if len(st.session_state.df_state.loc[st.session_state.df_state['Selecionar']]) > 0:
         st.write('---')
-        cliente = st.session_state.df_state.loc[st.session_state.df_state['Selecionar'], 'Nome']
+        cliente = (st.session_state.df_state.loc[st.session_state.df_state['Selecionar'], 'Nome']).tolist()
 
         st.write(cliente)
 
