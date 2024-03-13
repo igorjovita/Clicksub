@@ -3,7 +3,7 @@ import time
 import streamlit as st
 import pandas as pd
 from functions import select_planilha_acqua, pressionar, update_telefone, insert_clicksub, \
-    select_titular, select_reserva_titular
+    select_titular, select_reserva_titular, update_foto_reserva
 
 st.subheader('Click Sub')
 
@@ -74,6 +74,8 @@ if st.session_state.botao:
                     update_telefone(id_cliente, telefone)
 
                 insert_clicksub(id_reserva, pacote, pacote, valor)
+
+                update_foto_reserva(id_reserva, pacote)
 
             st.success('Pagamento Lançado')
 

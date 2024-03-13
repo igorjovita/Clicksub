@@ -69,29 +69,26 @@ def update_telefone(id_cliente, telefone):
     mydb.close()
 
 
-    def update_foto_reserva(id_reserva, pacote):
+def update_foto_reserva(id_reserva, pacote):
+    try:
+        mydb.connect()
+        foto = ''
+        if pacote == 'FOTO 5':
+            foto = 'F5'
+        elif pacote == 'FOTO 10':
+            foto = 'F10'
+        elif pacote == 'VIDEO':
+            foto = 'Video'
+        elif pacote == 'FOTO + VIDEO':
+            foto = 'F/V'
 
-        try:
-            mydb.connect()
-            cursor = mydb.cursor()
-            foto = ''
-            if pacote == 'FOTO 5':
-                foto = 'F5'
-            elif pacote == 'FOTO 10':
-                foto = 'F10'
-            elif pacote == 'VIDEO':
-                foto = 'Video'
-            elif pacote == 'FOTO + VIDEO':
-                foto = 'F/V'
+        cursor.execute("UPDATE reserva set fotos = %s where id = %s", (foto, id_reserva))
+        mydb.commit()
+    except mysql.connector.Error as err:
+        st.error(f"Erro ao atualizar a reserva: {err}")
 
-            cursor.execute("UPDATE reserva set fotos = %s where id = %s", (foto, id_reserva))
-            mydb.commit()
-        except mysql.connector.Error as err:
-            st.error(f"Erro ao atualizar a reserva: {err}")
-
-        finally:
-
-            mydb.close()
+    finally:
+        mydb.close()
 
 
 def select_titular(data):
