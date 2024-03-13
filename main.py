@@ -62,13 +62,13 @@ if st.session_state.botao:
                 pacote = valores['pacote']
                 pagamento = valores['pagamento']
                 valor = valores['valor']
-
+                st.write(id_titular)
                 st.write(nome)
                 st.write(telefone)
                 st.write(pacote)
                 st.write(valor)
 
-           
+
             st.success('Pagamento Lançado')
 
 
