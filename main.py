@@ -33,9 +33,6 @@ if st.session_state.botao:
 
 
 
-
-
-
 # dados = select_planilha_acqua(data_reserva)
 #
 # if st.button('Pesquisar', on_click=pressionar):
