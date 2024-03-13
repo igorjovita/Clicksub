@@ -29,8 +29,9 @@ if st.session_state.botao:
 
     reservas_selecionadas = select_reserva_titular(data_reserva, id_titular)
 
-    for reserva in reservas_selecionadas:
-        with st.form(f'{reserva[0]} Formulario'):
+    with st.form(f'{reserva[0]} Formulario'):
+        for reserva in reservas_selecionadas:
+
             st.subheader(f'{reserva[0]} - {reserva[2]}')
 
             col1, col2, col3, col4 = st.columns(4)
@@ -47,9 +48,8 @@ if st.session_state.botao:
             with col4:
                 valor = st.text_input('Valor', key=f'{reserva[0]} - valor')
 
-            if st.form_submit_button('Lançar Pagamento'):
-                reservas_selecionadas.remove(reserva)
-                st.success('Pagamento Lançado')
+        if st.form_submit_button('Lançar Pagamento'):
+            st.success('Pagamento Lançado')
 
 
 
