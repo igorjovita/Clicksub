@@ -48,6 +48,8 @@ if st.session_state.botao:
             with col4:
                 valor = st.text_input('Valor', key=f'{reserva[0]} - valor')
 
+            st.write('---')
+
         if st.form_submit_button('Lançar Pagamento'):
             st.success('Pagamento Lançado')
 
