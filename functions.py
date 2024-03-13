@@ -122,7 +122,7 @@ def select_reserva_titular(data, id_titular):
 
     try:
         mydb.connect()
-        cursor.execute("SELECT c.nome, c.telefone, r.tipo, r.id from reserva as r INNER JOIN cliente as c ON r.id_cliente = c.id where r.data = %s and r.id_titular = %s",(data, id_titular))
+        cursor.execute("SELECT c.nome, c.telefone, r.tipo, r.id, c.id from reserva as r INNER JOIN cliente as c ON r.id_cliente = c.id where r.data = %s and r.id_titular = %s",(data, id_titular))
         dados = cursor.fetchall()
 
         return dados
