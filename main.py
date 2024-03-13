@@ -51,7 +51,7 @@ if st.session_state.botao:
 
             if pacote is not None and pagamento is not None and valor is not None:
 
-                inputs[reserva[0]] = {'telefone': telefone, 'pacote': pacote, 'pagamento': pagamento, 'valor': valor}
+                inputs[reserva[0]] = {'telefone': telefone, 'pacote': pacote, 'pagamento': pagamento, 'valor': valor, 'id_reserva': reserva[3]}
 
             st.write('---')
 
@@ -62,7 +62,9 @@ if st.session_state.botao:
                 pacote = valores['pacote']
                 pagamento = valores['pagamento']
                 valor = valores['valor']
-                st.write(id_titular)
+                id_reserva = valores['id_reserva']
+
+                st.write(id_reserva)
                 st.write(nome)
                 st.write(telefone)
                 st.write(pacote)
