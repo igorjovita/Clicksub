@@ -29,7 +29,24 @@ if st.session_state.botao:
 
     reservas_selecionadas = select_reserva_titular(data_reserva, id_titular)
 
-    st.write(reservas_selecionadas)
+    for reserva in reservas_selecionadas:
+        with st.form(f'{reserva[0]} Formulario'):
+            st.subheader(f'{reserva[0]} - {reserva[2]}')
+
+            col1, col2, col3, col4 = st.columns(4)
+
+            with col1:
+                telefone = st.text_input('Telefone', value=reserva[1], key=f'{reserva[0]} - tel')
+
+            with col2:
+                pacote = st.selectbox('Pacotes', ['FOTO 5', 'FOTO 10', 'VIDEO', 'FOTO + VIDEO'], index=None, key=f'{reserva[0]} - pac')
+
+            with col3:
+                pagamento = st.selectbox('Forma Pagamento', ['Dinheiro', 'Pix', 'Debito'], index=None, key=f'{reserva[0]} - pag')
+
+            with col4:
+                valor = st.text_input('Valor', key=f'{reserva[0]} - valor')
+
 
 
 
