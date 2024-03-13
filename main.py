@@ -49,6 +49,9 @@ if st.session_state.botao:
             with col4:
                 valor = st.text_input('Valor', key=f'{reserva[0]} - valor')
 
+            if telefone == reserva[1]:
+                telefone = ''
+
             if pacote is not None and pagamento is not None and valor is not None:
 
                 inputs[reserva[0]] = {'telefone': telefone, 'pacote': pacote, 'pagamento': pagamento, 'valor': valor, 'id_reserva': reserva[3]}
@@ -63,6 +66,7 @@ if st.session_state.botao:
                 pagamento = valores['pagamento']
                 valor = valores['valor']
                 id_reserva = valores['id_reserva']
+
 
                 st.write(id_reserva)
                 st.write(nome)
