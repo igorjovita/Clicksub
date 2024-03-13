@@ -29,6 +29,7 @@ if st.session_state.botao:
 
     reservas_selecionadas = select_reserva_titular(data_reserva, id_titular)
 
+    inputs = {}
     with st.form('Formulario'):
         for reserva in reservas_selecionadas:
 
@@ -48,9 +49,12 @@ if st.session_state.botao:
             with col4:
                 valor = st.text_input('Valor', key=f'{reserva[0]} - valor')
 
+            inputs[reserva[0]] = {'telefone': telefone, 'pacote': pacote, 'pagamento': pagamento, 'valor': valor}
+
             st.write('---')
 
         if st.form_submit_button('Lançar Pagamento'):
+            st.write(inputs)
             st.success('Pagamento Lançado')
 
 
