@@ -56,7 +56,19 @@ if st.session_state.botao:
             st.write('---')
 
         if st.form_submit_button('Lançar Pagamento'):
-            st.write(inputs)
+
+            for nome, valores in inputs.items():
+                telefone = valores['telefone']
+                pacote = valores['pacote']
+                pagamento = valores['pagamento']
+                valor = valores['valor']
+
+                st.write(nome)
+                st.write(telefone)
+                st.write(pacote)
+                st.write(valor)
+
+           
             st.success('Pagamento Lançado')
 
 
