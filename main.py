@@ -49,7 +49,9 @@ if st.session_state.botao:
             with col4:
                 valor = st.text_input('Valor', key=f'{reserva[0]} - valor')
 
-            inputs[reserva[0]] = {'telefone': telefone, 'pacote': pacote, 'pagamento': pagamento, 'valor': valor}
+            if pacote is not None and pagamento is not None and valor is not None:
+
+                inputs[reserva[0]] = {'telefone': telefone, 'pacote': pacote, 'pagamento': pagamento, 'valor': valor}
 
             st.write('---')
 
