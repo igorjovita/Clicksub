@@ -29,7 +29,7 @@ if st.session_state.botao:
 
     reservas_selecionadas = select_reserva_titular(data_reserva, id_titular)
 
-    with st.form(f'{reserva[0]} Formulario'):
+    with st.form('Formulario'):
         for reserva in reservas_selecionadas:
 
             st.subheader(f'{reserva[0]} - {reserva[2]}')
