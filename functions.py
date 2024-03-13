@@ -14,6 +14,8 @@ mydb = mysql.connector.connect(
 
 cursor = mydb.cursor(buffered=True)
 
+chars = "'),([]"
+
 
 def create_clicksub():
     mydb.connect()
@@ -67,29 +69,70 @@ def update_telefone(id_cliente, telefone):
     mydb.close()
 
 
-def update_foto_reserva(id_reserva, pacote):
+    def update_foto_reserva(id_reserva, pacote):
+
+        try:
+            mydb.connect()
+            cursor = mydb.cursor()
+            foto = ''
+            if pacote == 'FOTO 5':
+                foto = 'F5'
+            elif pacote == 'FOTO 10':
+                foto = 'F10'
+            elif pacote == 'VIDEO':
+                foto = 'Video'
+            elif pacote == 'FOTO + VIDEO':
+                foto = 'F/V'
+
+            cursor.execute("UPDATE reserva set fotos = %s where id = %s", (foto, id_reserva))
+            mydb.commit()
+        except mysql.connector.Error as err:
+            st.error(f"Erro ao atualizar a reserva: {err}")
+
+        finally:
+
+            mydb.close()
+
+
+def select_titular(data):
+    try:
+        mydb.connect()
+
+        cursor.execute("SELECT nome_cliente, id_titular from reserva where data = %s and id_cliente = id_titular", (data,))
+        dados = cursor.fetchall()
+        lista = []
+        lista_nome_id = []
+        for dado in dados:
+            nome_titular = (str(dado[0]).translate(str.maketrans('', '', chars)))
+            lista.append(nome_titular)
+            lista_nome_id.append(dado)
+        return lista, lista_nome_id
+
+    except mysql.connector.Error as err:
+        st.error(f"Erro ao executar a consulta: {err}")
+        return []  # Retorna uma lista vazia em caso de erro
+
+    finally:
+        data = None
+        dados = None
+        mydb.close()
+
+
+def select_reserva_titular(data, id_titular):
 
     try:
         mydb.connect()
-        cursor = mydb.cursor()
-        foto = ''
-        if pacote == 'FOTO 5':
-            foto = 'F5'
-        elif pacote == 'FOTO 10':
-            foto = 'F10'
-        elif pacote == 'VIDEO':
-            foto = 'Video'
-        elif pacote == 'FOTO + VIDEO':
-            foto = 'F/V'
+        cursor.execute("SELECT c.nome, c.telefone, r.tipo, r.id from reserva as r INNER JOIN cliente as c ON r.id_cliente = c.id where r.data = %s and r.id_titular = %s",(data, id_titular))
+        dados = cursor.fetchall()
 
-        cursor.execute("UPDATE reserva set fotos = %s where id = %s", (foto, id_reserva))
-        mydb.commit()
+        return dados
+
     except mysql.connector.Error as err:
-        st.error(f"Erro ao atualizar a reserva: {err}")
+        st.error(f"Erro ao executar a consulta: {err}")
+        return []
 
     finally:
-
         mydb.close()
-
+        dados = None
 
 
