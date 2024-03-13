@@ -48,7 +48,7 @@ if st.session_state.botao:
                 valor = st.text_input('Valor', key=f'{reserva[0]} - valor')
 
             if st.form_submit_button('Lançar Pagamento'):
-
+                reservas_selecionadas.remove(reserva)
                 st.success('Pagamento Lançado')
 
 
