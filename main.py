@@ -13,7 +13,7 @@ if 'lista_pagamento' not in st.session_state:
 
 data_reserva = st.date_input('Data da panilha', format='DD/MM/YYYY')
 
-lista_titulares = select_titular(data_reserva)
+lista_titulares, nome_id_titular = select_titular(data_reserva)
 
 titular_reserva = st.selectbox('Escolha o titular da reserva', lista_titulares, index=None)
 
@@ -23,7 +23,7 @@ if st.button('Pesquisar'):
 id_titular = ''
 
 if st.session_state.botao:
-    for cliente in lista_titulares:
+    for cliente in nome_id_titular:
         if cliente[0] == titular_reserva:
             id_titular = cliente[1]
 
