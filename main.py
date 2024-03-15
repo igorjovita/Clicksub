@@ -73,7 +73,7 @@ if st.session_state.botao:
                 if telefone != '':
                     update_telefone(id_cliente, telefone)
 
-                insert_clicksub(id_reserva, pacote, pacote, valor)
+                insert_clicksub(id_reserva, pacote, pagamento, valor)
 
                 update_foto_reserva(id_reserva, pacote)
 
