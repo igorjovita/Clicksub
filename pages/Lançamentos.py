@@ -18,7 +18,23 @@ with col2:
 with col3:
     operadora = st.selectbox('Selecione a Operadora', operadoras, index=None)
 
+with st.expander('Lançar outra operadora'):
+    colu1, colu2, colu3 = st.columns(3)
+
+    with colu1:
+        operadora2 = st.selectbox('Selecione a Operadora secundaria', operadoras, index=None)
+
+    with colu2:
+        fotos2 = st.text_input('Quantidade de Fotos 2 operação')
+
+    with colu3:
+        video2 = st.text_input('Quantidade de Videos 2 operação')
+
 if st.button('Lançar no Sistema'):
 
-    st.write(data, nome_staff, fotos, video)
+    if operadora2:
 
+        st.write(data, nome_staff, operadora, fotos, video, operadora2, fotos2, video2)
+
+    else:
+        st.write(data, nome_staff, operadora, fotos, video)
