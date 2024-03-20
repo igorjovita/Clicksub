@@ -7,6 +7,7 @@ operadoras = ['AcquaWorld', 'Seaquest', 'Pl Divers']
 
 data = st.date_input('Selecione a data', format='DD/MM/YYYY')
 nome_staff = st.selectbox('Selecione o staff', staffs, index=None)
+operadora = st.selectbox('Selecione a Operadora', operadoras)
 
 fotos = st.text_input('Quantidade de Fotos')
 video = st.text_input('Quantidade de Videos')
