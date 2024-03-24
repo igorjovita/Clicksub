@@ -3,7 +3,7 @@ import os
 import streamlit as st
 import yaml
 from yaml.loader import SafeLoader
-
+from PIL import Image
 import streamlit_authenticator as stauth
 
 mydb = mysql.connector.connect(
@@ -37,7 +37,11 @@ def authenticate():
 
     if st.session_state["authentication_status"]:
         with st.sidebar:
-            st.image('logo_click.png', use_column_width=True, padding=0)
+            img = Image.open('logo_click.png')
+
+            # Remover a margem ao redor da imagem
+            img_cropped = img.crop(img.getbbox())
+            st.image(img_cropped, use_column_width=True)
             col1, col2 = st.columns(2)
             with col1:
                 st.subheader(f'*{st.session_state["name"]}*')
