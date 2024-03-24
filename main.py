@@ -1,7 +1,10 @@
 import streamlit as st
 import Vendas
+from functions import authenticate
 
 lista_nivel_1 = ['ricardo']
+
+authenticate()
 if st.session_state["authentication_status"]:
     st.sidebar.write('---')
     st.sidebar.title('Menu')
