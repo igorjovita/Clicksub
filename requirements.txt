@@ -4,3 +4,5 @@ streamlit-option-menu
 babel
 streamlit
 pip>=24.0
+streamlit-authenticator
+PyYAML~=6.0.1

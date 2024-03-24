@@ -1,6 +1,10 @@
 import mysql.connector
 import os
 import streamlit as st
+import yaml
+from yaml.loader import SafeLoader
+
+import streamlit_authenticator as stauth
 
 mydb = mysql.connector.connect(
     host=os.getenv("DB_HOST"),
@@ -15,6 +19,36 @@ mydb = mysql.connector.connect(
 cursor = mydb.cursor(buffered=True)
 
 chars = "'),([]"
+
+
+def authenticate():
+    with open('config.yaml') as file:
+        config = yaml.load(file, Loader=SafeLoader)
+
+    authenticator = stauth.Authenticate(
+        config['credentials'],
+        config['cookie']['name'],
+        config['cookie']['key'],
+        config['cookie']['expiry_days'],
+        config['preauthorized']
+    )
+
+    authenticator.login(location='sidebar')
+
+    if st.session_state["authentication_status"]:
+        with st.sidebar:
+            st.image('logo.png', use_column_width=True)
+            col1, col2 = st.columns(2)
+            with col1:
+                st.subheader(f'*{st.session_state["name"]}*')
+            with col2:
+                authenticator.logout()
+
+
+    elif st.session_state["authentication_status"] is False:
+        st.error('Username/password is incorrect')
+    elif st.session_state["authentication_status"] is None:
+        st.warning('Please enter your username and password')
 
 
 def create_clicksub():
@@ -38,13 +72,15 @@ def insert_clicksub(id_reserva, pacote, forma_pg, valor):
     try:
         mydb.connect()
 
-        cursor.execute("INSERT INTO pagamento_clicksub (id_reserva, pacote, forma_pg, valor) VALUES (%s, %s, %s, %s)", (id_reserva, pacote, forma_pg, valor))
+        cursor.execute("INSERT INTO pagamento_clicksub (id_reserva, pacote, forma_pg, valor) VALUES (%s, %s, %s, %s)",
+                       (id_reserva, pacote, forma_pg, valor))
 
     except mysql.connector.Error as err:
         st.error(f"Erro ao atualizar a reserva: {err}")
     finally:
 
         mydb.close()
+
 
 def select_planilha_acqua(data):
     mydb.connect()
@@ -95,7 +131,8 @@ def select_titular(data):
     try:
         mydb.connect()
 
-        cursor.execute("SELECT nome_cliente, id_titular from reserva where data = %s and id_cliente = id_titular", (data,))
+        cursor.execute("SELECT nome_cliente, id_titular from reserva where data = %s and id_cliente = id_titular",
+                       (data,))
         dados = cursor.fetchall()
         lista = []
         lista_nome_id = []
@@ -116,10 +153,11 @@ def select_titular(data):
 
 
 def select_reserva_titular(data, id_titular):
-
     try:
         mydb.connect()
-        cursor.execute("SELECT c.nome, c.telefone, r.tipo, r.id, c.id from reserva as r INNER JOIN cliente as c ON r.id_cliente = c.id where r.data = %s and r.id_titular = %s",(data, id_titular))
+        cursor.execute(
+            "SELECT c.nome, c.telefone, r.tipo, r.id, c.id from reserva as r INNER JOIN cliente as c ON r.id_cliente = c.id where r.data = %s and r.id_titular = %s",
+            (data, id_titular))
         dados = cursor.fetchall()
 
         return dados
@@ -131,5 +169,3 @@ def select_reserva_titular(data, id_titular):
     finally:
         mydb.close()
         dados = None
-
-

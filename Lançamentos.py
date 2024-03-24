@@ -1,7 +1,6 @@
 import streamlit as st
 
 
-
 staffs = ['Diego', 'Cauã', 'Thiago']
 operadoras = ['AcquaWorld', 'Seaquest', 'Pl Divers']
 
