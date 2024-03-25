@@ -65,7 +65,7 @@ def layout_vendas():
 
                 st.write('---')
 
-                if st.form_submit_button('Lançar Pagamento'):
+                if st.form_submit_button(f'Lançar Pagamento {reserva[0]}'):
 
                     for nome, valores in inputs.items():
                         telefone = valores['telefone']
