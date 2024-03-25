@@ -5,14 +5,16 @@ import pandas as pd
 from functions import select_planilha_acqua, pressionar, update_telefone, insert_clicksub, \
     select_titular, select_reserva_titular, update_foto_reserva
 
-def layout_vendas():
-    st.subheader('Click Sub')
 
+def layout_vendas():
     if 'botao' not in st.session_state:
         st.session_state.botao = False
 
     if 'lista_pagamento' not in st.session_state:
         st.session_state.lista_pagamento = []
+
+    st.header('Controle de vendas')
+    st.subheader('AcquaWorld')
 
     data_reserva = st.date_input('Data da panilha', format='DD/MM/YYYY')
 
@@ -44,10 +46,12 @@ def layout_vendas():
                     telefone = st.text_input('Telefone', value=reserva[1], key=f'{reserva[0]} - tel')
 
                 with col2:
-                    pacote = st.selectbox('Pacotes', ['FOTO 5', 'FOTO 10', 'VIDEO', 'FOTO + VIDEO'], index=None, key=f'{reserva[0]} - pac')
+                    pacote = st.selectbox('Pacotes', ['FOTO 5', 'FOTO 10', 'VIDEO', 'FOTO + VIDEO'], index=None,
+                                          key=f'{reserva[0]} - pac')
 
                 with col3:
-                    pagamento = st.selectbox('Forma Pagamento', ['Dinheiro', 'Pix', 'Debito'], index=None, key=f'{reserva[0]} - pag')
+                    pagamento = st.selectbox('Forma Pagamento', ['Dinheiro', 'Pix', 'Debito'], index=None,
+                                             key=f'{reserva[0]} - pag')
 
                 with col4:
                     valor = st.text_input('Valor', key=f'{reserva[0]} - valor')
@@ -56,8 +60,8 @@ def layout_vendas():
                     telefone = ''
 
                 if pacote is not None and pagamento is not None and valor is not None:
-
-                    inputs[reserva[0]] = {'telefone': telefone, 'pacote': pacote, 'pagamento': pagamento, 'valor': valor, 'id_reserva': reserva[3], 'id_cliente': reserva[4]}
+                    inputs[reserva[0]] = {'telefone': telefone, 'pacote': pacote, 'pagamento': pagamento,
+                                          'valor': valor, 'id_reserva': reserva[3], 'id_cliente': reserva[4]}
 
                 st.write('---')
 
@@ -84,5 +88,3 @@ def layout_vendas():
 
                 time.sleep(1.5)
                 st.rerun()
-
-
