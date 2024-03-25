@@ -14,22 +14,18 @@ def lancamentos():
     staffs = ['Diego', 'Cauã', 'Thiago']
     operadoras = ['AcquaWorld', 'Seaquest', 'Pl Divers']
 
-
-
     with st.form('Lancamento_foto'):
         st.subheader('Lançamentos')
 
-        col1, col2, col3 = st.columns(3)
+        col1, col2 = st.columns(2)
         with col1:
             data = st.date_input('Selecione a data', format='DD/MM/YYYY')
-            fotos = st.text_input('Quantidade de Fotos')
+            operadora = st.selectbox('Selecione a Operadora', operadoras, index=None)
+            video = st.text_input('Quantidade de Videos')
 
         with col2:
             nome_staff = st.selectbox('Selecione o staff', staffs, index=None)
-            video = st.text_input('Quantidade de Videos')
-
-        with col3:
-            operadora = st.selectbox('Selecione a Operadora', operadoras, index=None)
+            fotos = st.text_input('Quantidade de Fotos')
 
         with st.expander('Lançar outra operadora'):
             colu1, colu2, colu3 = st.columns(3)

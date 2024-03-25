@@ -16,7 +16,6 @@ def layout_vendas():
     }
 
     </style>''', unsafe_allow_html=True)
-    
     if 'botao' not in st.session_state:
         st.session_state.botao = False
 
