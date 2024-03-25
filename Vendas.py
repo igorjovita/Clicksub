@@ -32,7 +32,7 @@ def layout_vendas():
             if cliente[0] == titular_reserva:
                 id_titular = cliente[1]
 
-        
+
         reservas_selecionadas = select_reserva_titular(data_reserva, id_titular)
 
         inputs = {}
