@@ -66,26 +66,26 @@ def layout_vendas():
 
                 st.write('---')
 
-                if st.form_submit_button(f'Lançar Pagamento {reserva[0]}'):
+            if st.form_submit_button(f'Lançar Pagamento'):
 
-                    for nome, valores in inputs.items():
-                        telefone = valores['telefone']
-                        pacote = valores['pacote']
-                        pagamento = valores['pagamento']
-                        valor = valores['valor']
-                        id_reserva = valores['id_reserva']
-                        id_cliente = valores['id_cliente']
+                for nome, valores in inputs.items():
+                    telefone = valores['telefone']
+                    pacote = valores['pacote']
+                    pagamento = valores['pagamento']
+                    valor = valores['valor']
+                    id_reserva = valores['id_reserva']
+                    id_cliente = valores['id_cliente']
 
-                        if telefone != '':
-                            update_telefone(id_cliente, telefone)
+                    if telefone != '':
+                        update_telefone(id_cliente, telefone)
 
-                        insert_clicksub(id_reserva, pacote, pagamento, valor)
+                    insert_clicksub(id_reserva, pacote, pagamento, valor)
 
-                        update_foto_reserva(id_reserva, pacote)
+                    update_foto_reserva(id_reserva, pacote)
 
-                    st.success('Pagamento Lançado')
+                st.success('Pagamento Lançado')
 
-                    st.session_state.botao = False
+                st.session_state.botao = False
 
-                    time.sleep(1.5)
-                    st.rerun()
+                time.sleep(1.5)
+                st.rerun()
