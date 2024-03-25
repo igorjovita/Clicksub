@@ -76,8 +76,9 @@ def insert_clicksub(id_reserva, pacote, forma_pg, valor):
     try:
         mydb.connect()
 
-        cursor.execute("INSERT INTO pagamento_clicksub (id_reserva, pacote, forma_pg, valor) VALUES (%s, %s, %s, %s)",
-                       (id_reserva, pacote, forma_pg, valor))
+        cursor.execute("INSERT INTO click_pagamentos (id_reserva, pacote, forma_pg, valor, id_operadora) VALUES (%s, "
+                       "%s, %s, %s)",
+                       (id_reserva, pacote, forma_pg, valor, 1))
 
     except mysql.connector.Error as err:
         st.error(f"Erro ao atualizar a reserva: {err}")
@@ -173,3 +174,52 @@ def select_reserva_titular(data, id_titular):
     finally:
         mydb.close()
         dados = None
+
+
+def create_click_staffs():
+    mydb.connect()
+    cursor.execute("""
+        CREATE TABLE IF NOT EXISTS click_staffs(
+            id int not null auto_increment,
+            nome varchar(40),
+            usuario varchar(40),
+            foto5 int,
+            foto10 int,
+            foto_cred int,
+            video int,
+            primary key (id))
+    """)
+
+
+def create_click_operadoras():
+    mydb.connect()
+    cursor.execute("""
+        CREATE TABLE IF NOT EXISTS click_operadoras(
+            id int not null auto_increment,
+            nome varchar(40),
+            foto5 int,
+            foto10 int,
+            foto_cred int,
+            video int,
+            primary key (id));
+    """)
+
+
+def create_click_lancamentos():
+    mydb.connect()
+
+    cursor.execute("""
+        CREATE TABLE IF NOT EXISTS click_lancamentos (
+            id int not null auto_increment,
+            data date,
+            id_staffs int,
+            id_operadora int,
+            fotos int,
+            videos int,
+            situacao varchar(40),
+            primary key (id),
+            foreign key (id_staffs) references click_staffs(id),
+            foreign key (id_operadora) references click_operadoras(id));
+        """)
+
+

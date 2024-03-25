@@ -12,7 +12,7 @@ def lancamentos():
 
     </style>''', unsafe_allow_html=True)
 
-    staffs = ['Diego', 'Cauã', 'Thiago']
+    staffs = [st.session_state["name"]]
     operadoras = ['AcquaWorld', 'Seaquest', 'Pl Divers']
 
     with st.form('Lancamento_foto'):
@@ -25,7 +25,7 @@ def lancamentos():
             video = st.text_input('Quantidade de Videos')
 
         with col2:
-            nome_staff = st.selectbox('Selecione o staff', staffs, index=None)
+            nome_staff = st.selectbox('Selecione o staff', staffs)
             fotos = st.text_input('Quantidade de Fotos')
 
         with st.expander('Lançar outra operadora'):
@@ -36,7 +36,6 @@ def lancamentos():
                 video2 = st.text_input('Videos 2 operação')
             with colu2:
                 fotos2 = st.text_input('Fotos 2 operação')
-
 
         if st.form_submit_button('Lançar no Sistema'):
 
