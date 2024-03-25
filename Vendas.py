@@ -33,7 +33,7 @@ def layout_vendas():
                 id_titular = cliente[1]
 
         reservas_selecionadas = select_reserva_titular(data_reserva, id_titular)
-
+        st.write(reservas_selecionadas)
         inputs = {}
         with st.form('Formulario'):
             for reserva in reservas_selecionadas:
