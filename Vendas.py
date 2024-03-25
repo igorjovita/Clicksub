@@ -7,6 +7,16 @@ from functions import select_planilha_acqua, pressionar, update_telefone, insert
 
 
 def layout_vendas():
+    st.write('''<style>
+
+    [data-testid="column"] {
+        width: calc(33.3333% - 1rem) !important;
+        flex: 1 1 calc(33.3333% - 1rem) !important;
+        min-width: calc(33% - 1rem) !important;
+    }
+
+    </style>''', unsafe_allow_html=True)
+    
     if 'botao' not in st.session_state:
         st.session_state.botao = False
 

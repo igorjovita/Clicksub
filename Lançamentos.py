@@ -1,6 +1,16 @@
 import streamlit as st
 
 def lancamentos():
+    st.write('''<style>
+
+    [data-testid="column"] {
+        width: calc(33.3333% - 1rem) !important;
+        flex: 1 1 calc(33.3333% - 1rem) !important;
+        min-width: calc(33% - 1rem) !important;
+    }
+
+    </style>''', unsafe_allow_html=True)
+
     staffs = ['Diego', 'Cauã', 'Thiago']
     operadoras = ['AcquaWorld', 'Seaquest', 'Pl Divers']
 
