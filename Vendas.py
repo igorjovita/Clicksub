@@ -41,7 +41,6 @@ def layout_vendas():
             if cliente[0] == titular_reserva:
                 id_titular = cliente[1]
 
-
         reservas_selecionadas = select_reserva_titular(data_reserva, id_titular)
 
         inputs = {}
@@ -54,16 +53,11 @@ def layout_vendas():
 
                 with col1:
                     telefone = st.text_input('Telefone', value=reserva[1], key=f'{reserva[0]} - tel')
-
+                    pagamento = st.selectbox('Forma Pagamento', ['Dinheiro', 'Pix', 'Debito'], index=None,
+                                             key=f'{reserva[0]} - pag')
                 with col2:
                     pacote = st.selectbox('Pacotes', ['FOTO 5', 'FOTO 10', 'VIDEO', 'FOTO + VIDEO'], index=None,
                                           key=f'{reserva[0]} - pac')
-
-                with col3:
-                    pagamento = st.selectbox('Forma Pagamento', ['Dinheiro', 'Pix', 'Debito'], index=None,
-                                             key=f'{reserva[0]} - pag')
-
-                with col4:
                     valor = st.text_input('Valor', key=f'{reserva[0]} - valor')
 
                 if telefone == reserva[1]:
