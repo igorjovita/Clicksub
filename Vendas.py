@@ -32,9 +32,9 @@ def layout_vendas():
             if cliente[0] == titular_reserva:
                 id_titular = cliente[1]
 
-        st.write(id_titular)
+        
         reservas_selecionadas = select_reserva_titular(data_reserva, id_titular)
-        st.write(reservas_selecionadas)
+
         inputs = {}
         with st.form('Formulario'):
             for reserva in reservas_selecionadas:
@@ -69,7 +69,7 @@ def layout_vendas():
             if st.form_submit_button(f'Lançar Pagamento'):
 
                 st.write(inputs)
-                
+
                 for nome, valores in inputs.items():
                     telefone = valores['telefone']
                     pacote = valores['pacote']
