@@ -33,7 +33,7 @@ def authenticate():
         config['preauthorized']
     )
 
-    authenticator.login(location='sidebar')
+    authenticator.login()
 
     if st.session_state["authentication_status"]:
         with st.sidebar:
