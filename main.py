@@ -8,13 +8,14 @@ lista_nivel_1 = ['ricardo']
 
 authenticate()
 if st.session_state["authentication_status"]:
-    st.sidebar.write('---')
-    st.sidebar.title('Menu')
+
 
     sidebar_opcoes = None
     if st.session_state["username"] in lista_nivel_1:
         sidebar_opcoes = ['Vendas', 'Lançamentos', 'Financeiro']
-
+        st.sidebar.write('---')
+        st.sidebar.title('Menu')
+        
     if sidebar_opcoes is None:
         sidebar_menu = 'Vendas'
 
