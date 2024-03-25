@@ -15,7 +15,7 @@ if st.session_state["authentication_status"]:
         sidebar_opcoes = ['Vendas', 'Lançamentos', 'Financeiro']
         st.sidebar.write('---')
         st.sidebar.title('Menu')
-        
+
     if sidebar_opcoes is None:
         sidebar_menu = 'Vendas'
 
