@@ -32,6 +32,7 @@ def layout_vendas():
             if cliente[0] == titular_reserva:
                 id_titular = cliente[1]
 
+        st.write(id_titular)
         reservas_selecionadas = select_reserva_titular(data_reserva, id_titular)
         st.write(reservas_selecionadas)
         inputs = {}
