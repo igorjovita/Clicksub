@@ -32,10 +32,10 @@ def lancamentos():
             colu1, colu2 = st.columns(2)
 
             with colu1:
-                operadora2 = st.selectbox('Selecione a Operadora secundaria', operadoras, index=None)
-                video2 = st.text_input('Quantidade de Videos 2 operação')
+                operadora2 = st.selectbox('Operadora secundaria', operadoras, index=None)
+                video2 = st.text_input('Videos 2 operação')
             with colu2:
-                fotos2 = st.text_input('Quantidade de Fotos 2 operação')
+                fotos2 = st.text_input('Fotos 2 operação')
 
 
         if st.form_submit_button('Lançar no Sistema'):
