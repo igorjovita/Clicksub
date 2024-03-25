@@ -1,4 +1,6 @@
 import streamlit as st
+
+import Lançamentos
 import Vendas
 from functions import authenticate
 
@@ -9,10 +11,9 @@ if st.session_state["authentication_status"]:
     st.sidebar.write('---')
     st.sidebar.title('Menu')
 
+    sidebar_opcoes = None
     if st.session_state["username"] in lista_nivel_1:
         sidebar_opcoes = ['Vendas', 'Lançamentos', 'Financeiro']
-    else:
-        sidebar_opcoes = None
 
     if sidebar_opcoes is None:
         sidebar_menu = 'Vendas'
@@ -23,3 +24,5 @@ if st.session_state["authentication_status"]:
     if sidebar_menu == 'Vendas':
         Vendas.layout_vendas()
 
+    elif sidebar_menu == 'Lançamentos':
+        Lançamentos.lancamentos()
