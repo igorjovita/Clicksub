@@ -113,7 +113,7 @@ class Functions:
 
         return self.db.execute_query(query, params)
 
-    def insert_click_lançamentos(self, data, id_staff, id_operadora, fotos, video, situacao):
+    def insert_click_lancamentos(self, data, id_staff, id_operadora, fotos, video, situacao):
 
         query = """
         INSERT INTO click_lancamentos 

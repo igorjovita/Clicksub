@@ -55,13 +55,12 @@ def lancamentos():
                 index = operadoras.index(operadora2)
                 id_operadora2 = select_operadoras[index][0]
 
-                repo.insert_click_lançamentos(data, id_staff, id_operadora, fotos, video, 'Pendente')
-                repo.insert_click_lançamentos(data, id_staff, id_operadora2, fotos2, video2, 'Pendente')
+                repo.insert_click_lancamentos(data, id_staff, id_operadora, fotos, video, 'Pendente')
+                repo.insert_click_lancamentos(data, id_staff, id_operadora2, fotos2, video2, 'Pendente')
 
             else:
-                repo.insert_click_lançamentos(data, id_staff, id_operadora, fotos, video, 'Pendente')
+                repo.insert_click_lancamentos(data, id_staff, id_operadora, fotos, video, 'Pendente')
 
             st.success('Lançamento registrado no sistema!')
 
 
-            
