@@ -5,6 +5,7 @@ import yaml
 from yaml.loader import SafeLoader
 from PIL import Image
 import streamlit_authenticator as stauth
+import pandas as pd
 
 chars = "'),([]"
 
@@ -51,6 +52,24 @@ class Functions:
 
         query = "SELECT id_cliente, nome_cliente from reserva where data = %s and id_cliente = id_titular"
         params = (data,)
+
+        return self.db.execute_query(query, params)
+
+    def planilha_caixa_entrada_saida(self, data):
+        select = self.obter_lancamentos_caixa(data)
+        if select:
+            df = pd.DataFrame(select, columns=['Tipo', 'Descriçao', 'Pagamento', 'Valor Pago'])
+            st.markdown(df.style.hide(axis="index").to_html(), unsafe_allow_html=True)
+
+    def obter_lancamentos_caixa(self, data):
+        query = """
+        SELECT 
+            CASE WHEN tipo IS NULL THEN '' ELSE tipo END,
+            CASE WHEN descricao IS NULL THEN '' ELSE descricao END,
+            CASE WHEN forma_pg IS NULL THEN '' ELSE forma_pg END,
+            CASE WHEN valor IS NULL THEN '' ELSE CONCAT('R$ ', FORMAT(valor, 2, 'de_DE')) END
+        FROM caixa WHERE data = %s"""
+        params = (data)
 
         return self.db.execute_query(query, params)
 
