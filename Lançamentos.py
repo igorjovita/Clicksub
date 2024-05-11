@@ -20,7 +20,7 @@ def lancamentos():
 
     staff = st.session_state["name"]
     st.write(staff)
-    id_staff = repo.select_id_staff(staff[0])
+    id_staff = repo.select_id_staff(staff)
     select_operadoras = repo.select_operadoras()
     operadoras = []
     for item in select_operadoras:
