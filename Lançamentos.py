@@ -59,6 +59,11 @@ def lancamentos():
                 repo.insert_click_lancamentos(data, id_staff, id_operadora2, fotos2, video2, 'Pendente')
 
             else:
+                st.write(data)
+                st.write(id_staff)
+                st.write(id_operadora)
+                st.write(fotos)
+                st.write(video)
                 repo.insert_click_lancamentos(data, id_staff, id_operadora, fotos, video, 'Pendente')
 
             st.success('Lançamento registrado no sistema!')
