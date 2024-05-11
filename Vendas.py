@@ -31,6 +31,8 @@ def layout_vendas():
     data_reserva = st.date_input('Data da panilha', format='DD/MM/YYYY')
 
     select_titular = repo.select_titular(data_reserva)
+
+    st.write(select_titular)
     lista_titulares = []
     if select_titular is not None:
         for item in select_titular:
