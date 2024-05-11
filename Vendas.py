@@ -32,8 +32,9 @@ def layout_vendas():
 
     select_titular = repo.select_titular(data_reserva)
     lista_titulares = []
-    for item in select_titular:
-        lista_titulares.append(item[1])
+    if select_titular is not None:
+        for item in select_titular:
+            lista_titulares.append(item[1])
 
     titular_reserva = st.selectbox('Escolha o titular da reserva', lista_titulares, index=None)
 
