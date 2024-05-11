@@ -58,18 +58,17 @@ class Functions:
     def planilha_caixa_entrada_saida(self, data):
         select = self.obter_lancamentos_caixa(data)
         if select:
-            df = pd.DataFrame(select, columns=['Movimento', 'Tipo', 'Descriçao', 'Pagamento', 'Valor Pago'])
+            df = pd.DataFrame(select, columns=['Movimento', 'Tipo', 'Descriçao', 'Pagamento', 'Valor'])
             st.markdown(df.style.hide(axis="index").to_html(), unsafe_allow_html=True)
 
     def obter_lancamentos_caixa(self, data):
         query = """
         SELECT 
-            tipo_movimento,
-            CASE WHEN tipo IS NULL THEN '' ELSE tipo END,
+            movimento,
             CASE WHEN descricao IS NULL THEN '' ELSE descricao END,
             CASE WHEN forma_pg IS NULL THEN '' ELSE forma_pg END,
             CASE WHEN valor IS NULL THEN '' ELSE CONCAT('R$ ', FORMAT(valor, 2, 'de_DE')) END
-        FROM caixa WHERE data = %s"""
+        FROM click_caixa WHERE data = %s"""
         params = (data, )
 
         return self.db.execute_query(query, params)
