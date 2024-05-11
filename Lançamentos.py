@@ -60,3 +60,8 @@ def lancamentos():
 
             else:
                 repo.insert_click_lançamentos(data, id_staff, id_operadora, fotos, video, 'Pendente')
+
+            st.success('Lançamento registrado no sistema!')
+
+
+            
