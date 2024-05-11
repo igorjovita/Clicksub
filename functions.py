@@ -117,7 +117,7 @@ class Functions:
 
         query = """
         INSERT INTO click_lancamentos 
-        (data, id_staff, id_operadora, fotos, video, situacao) 
+        (data, id_staff, id_operadora, fotos, videos, situacao) 
         VALUES (%s, %s, %s, %s, %s, %s)"""
 
         params = (data, id_staff, id_operadora, fotos, video, situacao)
