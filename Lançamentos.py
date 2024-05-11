@@ -19,7 +19,6 @@ def lancamentos():
     </style>''', unsafe_allow_html=True)
 
     staff = st.session_state["name"]
-    st.write(staff)
     id_staff = repo.select_id_staff(staff)
     select_operadoras = repo.select_operadoras()
     operadoras = []
@@ -56,16 +55,12 @@ def lancamentos():
                 index = operadoras.index(operadora2)
                 id_operadora2 = select_operadoras[index][0]
 
-                repo.insert_click_lancamentos(data, id_staff, id_operadora, fotos, video, 'Pendente')
-                repo.insert_click_lancamentos(data, id_staff, id_operadora2, fotos2, video2, 'Pendente')
+                repo.insert_click_lancamentos(data, id_staff[0][0], id_operadora, fotos, video, 'Pendente')
+                repo.insert_click_lancamentos(data, id_staff[0][0], id_operadora2, fotos2, video2, 'Pendente')
 
             else:
-                st.write(data)
-                st.write(id_staff[0][0])
-                st.write(id_operadora)
-                st.write(fotos)
-                st.write(video)
-                repo.insert_click_lancamentos(data, id_staff, id_operadora, fotos, video, 'Pendente')
+
+                repo.insert_click_lancamentos(data, id_staff[0][0], id_operadora, fotos, video, 'Pendente')
 
             st.success('Lançamento registrado no sistema!')
 
