@@ -4,10 +4,11 @@ import Lançamentos
 import Vendas
 from functions import Functions
 from database import DataBaseMysql
+from Caixa import Caixa
 
 db = DataBaseMysql()
 repo = Functions(db)
-
+caixa = Caixa()
 lista_nivel_1 = ['ricardo']
 
 repo.authenticate()
@@ -32,4 +33,4 @@ if st.session_state["authentication_status"]:
 
 
     elif sidebar_menu == 'Caixa':
-        Caixa.caixa()
+        caixa.visualizar_caixa()
