@@ -18,7 +18,7 @@ def lancamentos():
 
     </style>''', unsafe_allow_html=True)
 
-    staff = [st.session_state["name"]]
+    staff = st.session_state["name"]
     id_staff = repo.select_id_staff(staff)
     select_operadoras = repo.select_operadoras()
     operadoras = []
