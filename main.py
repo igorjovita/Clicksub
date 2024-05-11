@@ -31,3 +31,5 @@ if st.session_state["authentication_status"]:
         Lançamentos.lancamentos()
 
 
+    elif sidebar_menu == 'Caixa':
+        Caixa.caixa()

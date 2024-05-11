@@ -102,14 +102,14 @@ class Functions:
 
         return self.db.execute_query(query)
 
-    def insert_click_pagamentos(self, id_reserva, pacote, forma_pg, valor):
+    def insert_click_pagamentos(self, data, id_reserva, pacote, forma_pg, valor):
 
         query = """
         INSERT INTO click_pagamentos 
-        (id_reserva, pacote, forma_pg, valor, id_operadora) 
-        VALUES (%s, %s, %s, %s, %s)"""
+        (data, id_reserva, pacote, forma_pg, valor, id_operadora) 
+        VALUES (%s, %s, %s, %s, %s, %s)"""
 
-        params = (id_reserva, pacote, forma_pg, valor, 1)
+        params = (data, id_reserva, pacote, forma_pg, valor, 1)
 
         return self.db.execute_query(query, params)
 
@@ -210,4 +210,17 @@ class Functions:
                 foreign key (id_operadora) references click_operadoras(id));
             """
 
+        self.db.execute_query(query)
+
+    def create_click_caixa(self):
+        query = """
+        CREATE TABLE click_caixa(
+            id int not null auto_increment,
+            data date,
+            movimento varchar(40),
+            descricao varchar(50),
+            forma_pg varchar(25),
+            valor decimal(10,2),
+        primary key (id));
+        """
         self.db.execute_query(query)

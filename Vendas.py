@@ -1,3 +1,4 @@
+import datetime
 import time
 
 import streamlit as st
@@ -74,7 +75,7 @@ def layout_vendas():
                 st.write('---')
 
             if st.form_submit_button(f'Lançar Pagamento'):
-
+                data = datetime.datetime.today()
                 st.write(inputs)
 
                 for nome, valores in inputs.items():
@@ -88,7 +89,7 @@ def layout_vendas():
                     if telefone != '':
                         repo.update_telefone(telefone, id_cliente)
 
-                    repo.insert_click_pagamentos(id_reserva, pacote, pagamento, valor)
+                    repo.insert_click_pagamentos(data, id_reserva, pacote, pagamento, valor)
 
                     repo.update_foto_reserva(pacote, id_reserva)
 
