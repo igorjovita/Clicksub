@@ -32,7 +32,6 @@ def layout_vendas():
 
     select_titular = repo.select_titular(data_reserva)
 
-    st.write(select_titular)
     lista_titulares = []
     if select_titular is not None:
         for item in select_titular:
@@ -48,7 +47,6 @@ def layout_vendas():
         id_titular = select_titular[index][0]
 
         reservas_selecionadas = repo.select_reserva(data_reserva, id_titular)
-        st.write(reservas_selecionadas)
         inputs = {}
         with st.form('Formulario'):
             for reserva in reservas_selecionadas:

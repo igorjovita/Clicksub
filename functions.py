@@ -96,7 +96,7 @@ class Functions:
         query = """
         INSERT INTO click_pagamentos 
         (id_reserva, pacote, forma_pg, valor, id_operadora) 
-        VALUES (%s, %s, %s, %s)"""
+        VALUES (%s, %s, %s, %s, %s)"""
 
         params = (id_reserva, pacote, forma_pg, valor, 1)
 
