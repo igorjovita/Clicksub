@@ -61,7 +61,7 @@ def lancamentos():
 
             else:
                 st.write(data)
-                st.write(id_staff)
+                st.write(id_staff[0][0])
                 st.write(id_operadora)
                 st.write(fotos)
                 st.write(video)
