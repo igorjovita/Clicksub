@@ -18,7 +18,7 @@ def lancamentos():
 
     </style>''', unsafe_allow_html=True)
 
-    staff = [st.session_state["name"]]
+    staff = st.session_state["name"]
     st.write(staff)
     id_staff = repo.select_id_staff(staff[0])
     select_operadoras = repo.select_operadoras()
@@ -36,7 +36,7 @@ def lancamentos():
             video = st.text_input('Quantidade de Videos')
 
         with col2:
-            nome_staff = st.selectbox('Selecione o staff', staff)
+            nome_staff = st.selectbox('Selecione o staff', [staff])
             fotos = st.text_input('Quantidade de Fotos')
 
         with st.expander('Lançar outra operadora'):
