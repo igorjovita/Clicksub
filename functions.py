@@ -52,7 +52,7 @@ class Functions:
         query = "SELECT id_cliente, nome_cliente from reserva where data = %s and id_cliente = id_titular"
         params = (data,)
 
-        self.db.execute_query(query, params)
+        return self.db.execute_query(query, params)
 
     def select_reserva(self, data, id_titular):
 
