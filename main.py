@@ -2,11 +2,15 @@ import streamlit as st
 
 import Lançamentos
 import Vendas
-from functions import authenticate
+from functions import Functions
+from database import DataBaseMysql
+
+db = DataBaseMysql()
+repo = Functions(db)
 
 lista_nivel_1 = ['ricardo']
 
-authenticate()
+repo.authenticate()
 if st.session_state["authentication_status"]:
 
     sidebar_opcoes = None
