@@ -116,7 +116,7 @@ class Functions:
     def insert_click_lançamentos(self, data, id_staff, id_operadora, fotos, video, situacao):
 
         query = """
-        INSERT INTO click_lançamentos 
+        INSERT INTO click_lancamentos 
         (data, id_staff, id_operadora, fotos, video, situacao) 
         VALUES (%s, %s, %s, %s, %s, %s)"""
 
