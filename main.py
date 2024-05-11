@@ -9,7 +9,6 @@ lista_nivel_1 = ['ricardo']
 authenticate()
 if st.session_state["authentication_status"]:
 
-
     sidebar_opcoes = None
     if st.session_state["username"] in lista_nivel_1:
         sidebar_opcoes = ['Vendas', 'Lançamentos', 'Financeiro']

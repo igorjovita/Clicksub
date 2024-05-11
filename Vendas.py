@@ -2,8 +2,11 @@ import time
 
 import streamlit as st
 import pandas as pd
-from functions import select_planilha_acqua, pressionar, update_telefone, insert_clicksub, \
-    select_titular, select_reserva_titular, update_foto_reserva
+from database import DataBaseMysql
+from functions import Functions
+
+db = DataBaseMysql()
+repo = Functions(db)
 
 
 def layout_vendas():
@@ -27,21 +30,21 @@ def layout_vendas():
 
     data_reserva = st.date_input('Data da panilha', format='DD/MM/YYYY')
 
-    lista_titulares, nome_id_titular = select_titular(data_reserva)
+    select_titular = repo.select_titular(data_reserva)
+    lista_titulares = []
+    for item in select_titular:
+        lista_titulares.append(item[1])
 
     titular_reserva = st.selectbox('Escolha o titular da reserva', lista_titulares, index=None)
 
     if st.button('Pesquisar'):
         st.session_state.botao = True
 
-    id_titular = ''
-
     if st.session_state.botao:
-        for cliente in nome_id_titular:
-            if cliente[0] == titular_reserva:
-                id_titular = cliente[1]
+        index = lista_titulares.index(titular_reserva)
+        id_titular = select_titular[index][0]
 
-        reservas_selecionadas = select_reserva_titular(data_reserva, id_titular)
+        reservas_selecionadas = repo.select_reserva(data_reserva, id_titular)
 
         inputs = {}
         with st.form('Formulario'):
@@ -82,11 +85,11 @@ def layout_vendas():
                     id_cliente = valores['id_cliente']
 
                     if telefone != '':
-                        update_telefone(id_cliente, telefone)
+                        repo.update_telefone(telefone, id_cliente)
 
-                    insert_clicksub(id_reserva, pacote, pagamento, valor)
+                    repo.insert_clicksub(id_reserva, pacote, pagamento, valor)
 
-                    update_foto_reserva(id_reserva, pacote)
+                    repo.update_foto_reserva(pacote, id_reserva)
 
                 st.success('Pagamento Lançado')
 
