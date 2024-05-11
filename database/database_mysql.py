@@ -31,6 +31,7 @@ class DataBaseMysql:
 
             if query.strip().startswith('SELECT') or query.strip().startswith('WITH'):
                 result = cursor.fetchall()
+                st.write('to aqui')
                 return result
 
             elif query.strip().startswith('INSERT INTO'):
