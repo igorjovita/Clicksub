@@ -1,5 +1,11 @@
 import streamlit as st
 
+from database import DataBaseMysql
+from functions import Functions
+
+db = DataBaseMysql()
+repo = Functions(db)
+
 
 def lancamentos():
     st.write('''<style>
@@ -12,8 +18,12 @@ def lancamentos():
 
     </style>''', unsafe_allow_html=True)
 
-    staffs = [st.session_state["name"]]
-    operadoras = ['AcquaWorld', 'Seaquest', 'Pl Divers']
+    staff = [st.session_state["name"]]
+    id_staff = repo.select_id_staff(staff)
+    select_operadoras = repo.select_operadoras()
+    operadoras = []
+    for item in select_operadoras:
+        operadoras.append(item[1])
 
     with st.form('Lancamento_foto'):
         st.subheader('Lançamentos')
@@ -25,7 +35,7 @@ def lancamentos():
             video = st.text_input('Quantidade de Videos')
 
         with col2:
-            nome_staff = st.selectbox('Selecione o staff', staffs)
+            nome_staff = st.selectbox('Selecione o staff', staff)
             fotos = st.text_input('Quantidade de Fotos')
 
         with st.expander('Lançar outra operadora'):
@@ -38,10 +48,15 @@ def lancamentos():
                 fotos2 = st.text_input('Fotos 2 operação')
 
         if st.form_submit_button('Lançar no Sistema'):
+            index = operadoras.index(operadora)
+            id_operadora = select_operadoras[index][0]
 
             if operadora2:
+                index = operadoras.index(operadora2)
+                id_operadora2 = select_operadoras[index][0]
 
-                st.write(data, nome_staff, operadora, fotos, video, operadora2, fotos2, video2)
+                repo.insert_click_lançamentos(data, id_staff, id_operadora, fotos, video, 'Pendente')
+                repo.insert_click_lançamentos(data, id_staff, id_operadora2, fotos2, video2, 'Pendente')
 
             else:
-                st.write(data, nome_staff, operadora, fotos, video)
+                repo.insert_click_lançamentos(data, id_staff, id_operadora, fotos, video, 'Pendente')

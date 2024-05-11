@@ -15,18 +15,19 @@ if st.session_state["authentication_status"]:
 
     sidebar_opcoes = None
     if st.session_state["username"] in lista_nivel_1:
-        sidebar_opcoes = ['Vendas', 'Lançamentos', 'Financeiro']
+        sidebar_opcoes = ['Vendas', 'Lançamentos', 'Caixa', 'Financeiro']
         st.sidebar.write('---')
         st.sidebar.title('Menu')
 
-    if sidebar_opcoes is None:
-        sidebar_menu = 'Vendas'
-
     else:
-        sidebar_menu = st.sidebar.radio('Selecione uma pagina', sidebar_opcoes)
+        sidebar_opcoes = ['Vendas', 'Caixa']
+
+    sidebar_menu = st.sidebar.radio('Selecione uma pagina', sidebar_opcoes)
 
     if sidebar_menu == 'Vendas':
         Vendas.layout_vendas()
 
     elif sidebar_menu == 'Lançamentos':
         Lançamentos.lancamentos()
+
+

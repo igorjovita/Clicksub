@@ -91,7 +91,18 @@ class Functions:
 
         return self.db.execute_query(query, params)
 
-    def insert_clicksub(self, id_reserva, pacote, forma_pg, valor):
+    def select_id_staff(self, nome):
+        query = "SELECT id FROM click_staffs WHERE nome = %s"
+        params = (nome,)
+
+        return self.db.execute_query(query, params)
+
+    def select_operadoras(self):
+        query = "SELECT id, nome from click_operadoras"
+
+        return self.db.execute_query(query)
+
+    def insert_click_pagamentos(self, id_reserva, pacote, forma_pg, valor):
 
         query = """
         INSERT INTO click_pagamentos 
@@ -99,6 +110,17 @@ class Functions:
         VALUES (%s, %s, %s, %s, %s)"""
 
         params = (id_reserva, pacote, forma_pg, valor, 1)
+
+        return self.db.execute_query(query, params)
+
+    def insert_click_lançamentos(self, data, id_staff, id_operadora, fotos, video, situacao):
+
+        query = """
+        INSERT INTO click_lançamentos 
+        (data, id_staff, id_operadora, fotos, video, situacao) 
+        VALUES (%s, %s, %s, %s, %s, %s)"""
+
+        params = (data, id_staff, id_operadora, fotos, video, situacao)
 
         return self.db.execute_query(query, params)
 
@@ -178,7 +200,7 @@ class Functions:
             CREATE TABLE IF NOT EXISTS click_lancamentos (
                 id int not null auto_increment,
                 data date,
-                id_staffs int,
+                id_staff int,
                 id_operadora int,
                 fotos int,
                 videos int,
