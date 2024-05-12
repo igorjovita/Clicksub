@@ -117,10 +117,9 @@ def layout_vendas():
                 for forma_pg, lista in dicionario.items():
                     contador = Counter(lista)
                     descricao = ' + '.join(f'{v} {k}' for k, v in contador.items())
-                    st.write(f"'{descricao}' pagamento {forma_pg}")
+                    st.write(f"{descricao} pagamento {forma_pg}")
 
-
-                #repo.insert_click_caixa(data, 'ENTRADA', f'{resultado} do titular {titular_reserva}', pagamento, valor_total)
+                    repo.insert_click_caixa(data, 'ENTRADA', f'{descricao} do titular {titular_reserva}', forma_pg, valor_total)
                 st.success('Pagamento Lançado')
 
                 # st.session_state.botao = False
