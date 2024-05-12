@@ -108,25 +108,14 @@ def layout_vendas():
                     repo.insert_click_caixa(data, 'ENTRADA', f'{pacote} cliente {nome}', pagamento,
                                             valor)
 
-                    # repo.insert_click_pagamentos(data, id_reserva, pacote, pagamento, valor)
-                    #
-                    # repo.update_foto_reserva(pacote, id_reserva)
+                    repo.insert_click_pagamentos(data, id_reserva, pacote, pagamento, valor)
 
-                dicionario = defaultdict(list)
+                    repo.update_foto_reserva(pacote, id_reserva)
 
-                for item, forma_pg in zip(pacotes, forma_pagamentos):
-                    dicionario[forma_pg].append(item)
 
-                for forma_pg, lista in dicionario.items():
-                    contador = Counter(lista)
-                    descricao = ' + '.join(f'{v} {k}' for k, v in contador.items())
-                    st.write(f"{descricao} pagamento {forma_pg}")
-
-                    # repo.insert_click_caixa(data, 'ENTRADA', f'{descricao} do titular {titular_reserva}', forma_pg,
-                    #                         valor_total)
                 st.success('Pagamento Lançado')
 
-                # st.session_state.botao = False
-                #
-                # time.sleep(1.5)
-                # st.rerun()
+                st.session_state.botao = False
+
+                time.sleep(1.5)
+                st.rerun()

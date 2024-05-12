@@ -58,7 +58,7 @@ class Functions:
     def planilha_caixa_entrada_saida(self, data):
         select = self.obter_lancamentos_caixa(data)
         if select:
-            df = pd.DataFrame(select, columns=['Movimento', 'Tipo', 'Descriçao', 'Pagamento', 'Valor'])
+            df = pd.DataFrame(select, columns=['Movimento', 'Descriçao', 'Pagamento', 'Valor'])
             st.markdown(df.style.hide(axis="index").to_html(), unsafe_allow_html=True)
 
     def obter_lancamentos_caixa(self, data):
