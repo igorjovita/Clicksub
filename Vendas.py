@@ -77,8 +77,8 @@ def layout_vendas():
                     telefone = ''
 
                 if pacote is not None and pagamento is not None and valor is not None:
-                    inputs[reserva[0]] = {'telefone': telefone, 'pacote': pacote, 'pagamento': pagamento,
-                                          'valor': valor, 'id_reserva': reserva[3], 'id_cliente': reserva[4]}
+                    inputs[nome] = {'telefone': telefone, 'pacote': pacote, 'pagamento': pagamento,
+                                    'valor': valor, 'id_reserva': reserva[3], 'id_cliente': reserva[4]}
 
                 st.write('---')
 
@@ -105,6 +105,9 @@ def layout_vendas():
                     if telefone != '':
                         repo.update_telefone(telefone, id_cliente)
 
+                    repo.insert_click_caixa(data, 'ENTRADA', f'{pacote} cliente {nome}', pagamento,
+                                            valor)
+
                     # repo.insert_click_pagamentos(data, id_reserva, pacote, pagamento, valor)
                     #
                     # repo.update_foto_reserva(pacote, id_reserva)
@@ -119,7 +122,8 @@ def layout_vendas():
                     descricao = ' + '.join(f'{v} {k}' for k, v in contador.items())
                     st.write(f"{descricao} pagamento {forma_pg}")
 
-                    repo.insert_click_caixa(data, 'ENTRADA', f'{descricao} do titular {titular_reserva}', forma_pg, valor_total)
+                    # repo.insert_click_caixa(data, 'ENTRADA', f'{descricao} do titular {titular_reserva}', forma_pg,
+                    #                         valor_total)
                 st.success('Pagamento Lançado')
 
                 # st.session_state.botao = False
