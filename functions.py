@@ -6,6 +6,8 @@ from yaml.loader import SafeLoader
 from PIL import Image
 import streamlit_authenticator as stauth
 import pandas as pd
+from babel.numbers import format_currency
+
 
 chars = "'),([]"
 
@@ -71,8 +73,8 @@ class Functions:
                 valor = valor.str.replace(',', '.').astype(float)
 
                 total = valor.sum()
-            
-                df_entrada.loc[len(df_entrada.index)] = ['Total', '', f'R$ {total:.2f}']
+                total = format_currency(total, 'BRL', locale='pt_BR')
+                df_entrada.loc[len(df_entrada.index)] = ['Total', '', total]
                 st.subheader('Entrada')
                 st.markdown(df_entrada.style.hide(axis="index").to_html(), unsafe_allow_html=True)
 
