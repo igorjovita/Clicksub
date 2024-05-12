@@ -61,13 +61,16 @@ class Functions:
         select = self.obter_lancamentos_caixa(data)
         entrada = []
         saida = []
+        col1, col2 = st.columns(2)
         if select:
             for item in select:
                 if item[0] == 'ENTRADA':
                     entrada.append((item[1], item[2], item[3]))
                 else:
                     saida.append((item[1], item[2], item[3]))
+
             if entrada:
+
                 df_entrada = pd.DataFrame(entrada, columns=['Descriçao', 'Pagamento', 'Valor'])
                 valor = df_entrada['Valor'].str.replace('R$ ', '')
                 valor = valor.str.replace(',', '.').astype(float)
@@ -75,13 +78,15 @@ class Functions:
                 total = valor.sum()
                 total = format_currency(total, 'BRL', locale='pt_BR')
                 df_entrada.loc[len(df_entrada.index)] = ['Total', '', total]
-                st.subheader('Entrada')
-                st.markdown(df_entrada.style.hide(axis="index").to_html(), unsafe_allow_html=True)
+                with col1:
+                    st.subheader('Entrada')
+                    st.markdown(df_entrada.style.hide(axis="index").to_html(), unsafe_allow_html=True)
 
             if saida:
                 df_saida = pd.DataFrame(saida, columns=['Descriçao', 'Pagamento', 'Valor'])
-                st.subheader('Saida')
-                st.markdown(df_saida.style.hide(axis="index").to_html(), unsafe_allow_html=True)
+                with col2:
+                    st.subheader('Saida')
+                    st.markdown(df_saida.style.hide(axis="index").to_html(), unsafe_allow_html=True)
 
     def obter_lancamentos_caixa(self, data):
         query = """

@@ -20,7 +20,7 @@ class Caixa:
 
         if menu == 'Lançar':
             st.subheader('Lançamentos Caixa')
-            
+
             col1, col2 = st.columns(2)
             with col1:
                 data = st.date_input('Data', format='DD/MM/YYYY')
