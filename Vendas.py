@@ -75,8 +75,7 @@ def layout_vendas():
                 if input_telefone == telefone:
                     telefone = ''
 
-                valor_total += int(valor)
-                pacotes.append(pacote)
+
 
                 if pacote is not None and pagamento is not None and valor is not None:
                     inputs[reserva[0]] = {'telefone': telefone, 'pacote': pacote, 'pagamento': pagamento,
@@ -86,8 +85,7 @@ def layout_vendas():
 
             if st.form_submit_button(f'Lançar Pagamento'):
                 data = datetime.datetime.today()
-                contador = Counter(pacotes)
-                st.write(contador)
+
 
                 for nome, valores in inputs.items():
                     telefone = valores['telefone']
@@ -97,8 +95,14 @@ def layout_vendas():
                     id_reserva = valores['id_reserva']
                     id_cliente = valores['id_cliente']
 
+                    valor_total += int(valor)
+                    pacotes.append(pacote)
+
                     if telefone != '':
                         repo.update_telefone(telefone, id_cliente)
+
+                    contador = Counter(pacotes)
+                    st.write(contador)
 
                     repo.insert_click_pagamentos(data, id_reserva, pacote, pagamento, valor)
 
