@@ -68,8 +68,7 @@ class Functions:
             if entrada:
                 df_entrada = pd.DataFrame(entrada, columns=['Descriçao', 'Pagamento', 'Valor'])
                 total = df_entrada['Valor'].sum()
-                df_entrada = df_entrada.append({'Descriçao': 'Total', 'Pagamento': '', 'Valor': total},
-                                               ignore_index=True)
+                df_entrada.loc[len(df_entrada.index)] = ['Total', '', total]
                 st.subheader('Entrada')
                 st.markdown(df_entrada.style.hide(axis="index").to_html(), unsafe_allow_html=True)
 
