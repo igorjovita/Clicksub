@@ -67,7 +67,10 @@ class Functions:
                     saida.append(item)
             if entrada:
                 df_entrada = pd.DataFrame(entrada, columns=['Descriçao', 'Pagamento', 'Valor'])
-                total = df_entrada['Valor'].sum()
+                valor = df_entrada['Valor'].str.replace('R$ ', '')
+                valor = df_entrada['Valor'].str.replace(',', '.').astype(float)
+
+                total = valor.sum()
                 df_entrada.loc[len(df_entrada.index)] = ['Total', '', total]
                 st.subheader('Entrada')
                 st.markdown(df_entrada.style.hide(axis="index").to_html(), unsafe_allow_html=True)
