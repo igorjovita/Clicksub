@@ -108,7 +108,8 @@ def layout_vendas():
                     repo.update_foto_reserva(pacote, id_reserva)
 
                 contador = Counter(pacotes)
-                st.write(contador)
+                resultado = ' + '.join(f'{v} {k}' for k, v in contador.items())
+                st.write(resultado)
 
                 repo.insert_click_caixa(data, 'ENTRADA', f'Pagamento {titular_reserva}', pagamento, valor_total)
                 st.success('Pagamento Lançado')
