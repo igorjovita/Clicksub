@@ -132,6 +132,17 @@ class Functions:
 
         return self.db.execute_query(query, params)
 
+    def insert_click_caixa(self, data, movimento, descricao, forma_pg, valor):
+
+        query = """
+        INSERT INTO click_caixa 
+        (data, movimento, descricao, forma_pg, valor) 
+        VALUES (%s, %s, %s, %s, %s)"""
+
+        params = (data, movimento, descricao, forma_pg, valor)
+
+        return self.db.execute_query(query, params)
+
     def insert_click_lancamentos(self, data, id_staff, id_operadora, fotos, video, situacao):
 
         query = """
