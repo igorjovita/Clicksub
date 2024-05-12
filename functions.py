@@ -68,7 +68,7 @@ class Functions:
             if entrada:
                 df_entrada = pd.DataFrame(entrada, columns=['Descriçao', 'Pagamento', 'Valor'])
                 valor = df_entrada['Valor'].str.replace('R$ ', '')
-                valor = df_entrada['Valor'].str.replace(',', '.').astype(float)
+                valor = valor.str.replace(',', '.').astype(float)
 
                 total = valor.sum()
                 df_entrada.loc[len(df_entrada.index)] = ['Total', '', total]
