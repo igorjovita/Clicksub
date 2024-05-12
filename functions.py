@@ -66,7 +66,7 @@ class Functions:
                 if item[0] == 'ENTRADA':
                     entrada.append((item[1], item[2], item[3]))
                 else:
-                    saida.append(item)
+                    saida.append((item[1], item[2], item[3]))
             if entrada:
                 df_entrada = pd.DataFrame(entrada, columns=['Descriçao', 'Pagamento', 'Valor'])
                 valor = df_entrada['Valor'].str.replace('R$ ', '')
@@ -79,7 +79,7 @@ class Functions:
                 st.markdown(df_entrada.style.hide(axis="index").to_html(), unsafe_allow_html=True)
 
             if saida:
-                df_saida = pd.DataFrame(saida, columns=['Movimento', 'Descriçao', 'Pagamento', 'Valor'])
+                df_saida = pd.DataFrame(saida, columns=['Descriçao', 'Pagamento', 'Valor'])
                 st.subheader('Saida')
                 st.markdown(df_saida.style.hide(axis="index").to_html(), unsafe_allow_html=True)
 
