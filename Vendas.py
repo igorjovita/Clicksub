@@ -5,6 +5,7 @@ import streamlit as st
 import pandas as pd
 from database import DataBaseMysql
 from functions import Functions
+from collections import Counter
 
 db = DataBaseMysql()
 repo = Functions(db)
@@ -49,24 +50,33 @@ def layout_vendas():
 
         reservas_selecionadas = repo.select_reserva(data_reserva, id_titular)
         inputs = {}
+        valor_total = 0
+        pacotes = []
         with st.form('Formulario'):
             for reserva in reservas_selecionadas:
 
-                st.subheader(f'{reserva[0]} - {reserva[2]}')
+                nome = reserva[0]
+                telefone = reserva[1]
+                tipo = reserva[2]
+
+                st.subheader(f'{nome} - {tipo}')
 
                 col1, col2 = st.columns(2)
 
                 with col1:
-                    telefone = st.text_input('Telefone', value=reserva[1], key=f'{reserva[0]} - tel')
+                    input_telefone = st.text_input('Telefone', value=telefone, key=f'{nome} - tel')
                     pagamento = st.selectbox('Forma Pagamento', ['Dinheiro', 'Pix', 'Debito'], index=None,
-                                             key=f'{reserva[0]} - pag')
+                                             key=f'{nome} - pag')
                 with col2:
                     pacote = st.selectbox('Pacotes', ['FOTO 5', 'FOTO 10', 'VIDEO', 'FOTO + VIDEO'], index=None,
-                                          key=f'{reserva[0]} - pac')
-                    valor = st.text_input('Valor', key=f'{reserva[0]} - valor')
+                                          key=f'{nome} - pac')
+                    valor = st.text_input('Valor', key=f'{nome} - valor')
 
-                if telefone == reserva[1]:
+                if input_telefone == telefone:
                     telefone = ''
+
+                valor_total += int(valor)
+                pacotes.append(pacote)
 
                 if pacote is not None and pagamento is not None and valor is not None:
                     inputs[reserva[0]] = {'telefone': telefone, 'pacote': pacote, 'pagamento': pagamento,
@@ -76,7 +86,8 @@ def layout_vendas():
 
             if st.form_submit_button(f'Lançar Pagamento'):
                 data = datetime.datetime.today()
-                st.write(inputs)
+                contador = Counter(pacotes)
+                st.write(contador)
 
                 for nome, valores in inputs.items():
                     telefone = valores['telefone']
@@ -93,6 +104,7 @@ def layout_vendas():
 
                     repo.update_foto_reserva(pacote, id_reserva)
 
+                repo.insert_click_caixa(data, 'ENTRADA', f'Pagamento {titular_reserva}', pagamento, valor_total)
                 st.success('Pagamento Lançado')
 
                 st.session_state.botao = False
