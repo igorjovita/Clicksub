@@ -101,12 +101,14 @@ def layout_vendas():
                     if telefone != '':
                         repo.update_telefone(telefone, id_cliente)
 
-                    contador = Counter(pacotes)
-                    st.write(contador)
+
 
                     repo.insert_click_pagamentos(data, id_reserva, pacote, pagamento, valor)
 
                     repo.update_foto_reserva(pacote, id_reserva)
+
+                contador = Counter(pacotes)
+                st.write(contador)
 
                 repo.insert_click_caixa(data, 'ENTRADA', f'Pagamento {titular_reserva}', pagamento, valor_total)
                 st.success('Pagamento Lançado')
