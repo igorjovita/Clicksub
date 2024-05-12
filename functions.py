@@ -87,7 +87,7 @@ class Functions:
 
             if saida:
                 df_saida = pd.DataFrame(saida, columns=['Descriçao', 'Pagamento', 'Valor'])
-                with colun4:
+                with colun3:
                     st.subheader('Saida')
                 with col2:
                     st.markdown(df_saida.style.hide(axis="index").to_html(), unsafe_allow_html=True)
