@@ -79,15 +79,15 @@ class Functions:
                 total = format_currency(total, 'BRL', locale='pt_BR')
                 df_entrada.loc[len(df_entrada.index)] = ['Total', '', total]
                 with col1:
-                    st.subheader('Entrada')
-                    st.markdown("<h1 style='text-align: center;'>Título do DataFrame</h1>", unsafe_allow_html=True)
+                    st.markdown("<h3 style='text-align: center;'>Entradas</h3>", unsafe_allow_html=True)
 
                     st.markdown(df_entrada.style.hide(axis="index").to_html(), unsafe_allow_html=True)
 
             if saida:
                 df_saida = pd.DataFrame(saida, columns=['Descriçao', 'Pagamento', 'Valor'])
                 with col2:
-                    st.subheader('Saida')
+                    st.markdown("<h3 style='text-align: center;'>Saidas</h3>", unsafe_allow_html=True)
+
                     st.markdown(df_saida.style.hide(axis="index").to_html(), unsafe_allow_html=True)
 
     def obter_lancamentos_caixa(self, data):
