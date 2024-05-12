@@ -19,11 +19,16 @@ class Caixa:
                 repo.planilha_caixa_entrada_saida(data)
 
         if menu == 'Lançar':
-            data = st.date_input('Data', format='DD/MM/YYYY')
-            movimento = st.selectbox('Tipo de Movimentação', ['ENTRADA', 'SAIDA'], index=None)
-            descricao = st.text_input('Descrição')
-            forma_pg = st.selectbox('Forma Pagamento', ['Dinheiro', 'Pix', 'Saida'], index=None)
-            valor = st.text_input('Valor')
+            col1, col2 = st.columns(2)
+            with col1:
+                data = st.date_input('Data', format='DD/MM/YYYY')
+                descricao = st.text_input('Descrição')
+                valor = st.text_input('Valor')
+
+            with col2:
+                movimento = st.selectbox('Tipo de Movimentação', ['ENTRADA', 'SAIDA'], index=None)
+                forma_pg = st.selectbox('Forma Pagamento', ['Dinheiro', 'Pix', 'Saida'], index=None)
+            
             if st.button('Lançar no Caixa'):
                 repo.insert_click_caixa(data, movimento, descricao, forma_pg, valor)
                 st.success('Lançamento inserido no caixa')
