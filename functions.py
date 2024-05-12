@@ -62,7 +62,7 @@ class Functions:
         if select:
             for item in select:
                 if item[0] == 'ENTRADA':
-                    entrada.append(item)
+                    entrada.append((item[1], item[2], item[3]))
                 else:
                     saida.append(item)
             if entrada:
