@@ -71,7 +71,8 @@ class Functions:
                 valor = valor.str.replace(',', '.').astype(float)
 
                 total = valor.sum()
-                df_entrada.loc[len(df_entrada.index)] = ['Total', '', total]
+            
+                df_entrada.loc[len(df_entrada.index)] = ['Total', '', f'R$ {total:.2f}']
                 st.subheader('Entrada')
                 st.markdown(df_entrada.style.hide(axis="index").to_html(), unsafe_allow_html=True)
 
