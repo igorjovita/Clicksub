@@ -66,7 +66,7 @@ class Functions:
                 else:
                     saida.append(item)
             if entrada:
-                df_entrada = pd.DataFrame(entrada, columns=['Movimento', 'Descriçao', 'Pagamento', 'Valor'])
+                df_entrada = pd.DataFrame(entrada, columns=['Descriçao', 'Pagamento', 'Valor'])
                 st.subheader('Entrada')
                 st.markdown(df_entrada.style.hide(axis="index").to_html(), unsafe_allow_html=True)
 
