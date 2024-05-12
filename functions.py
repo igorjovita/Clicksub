@@ -61,6 +61,7 @@ class Functions:
         select = self.obter_lancamentos_caixa(data)
         entrada = []
         saida = []
+        colun1, colun2, colun3, colun4 = st.columns(4)
         col1, col2 = st.columns(2)
         if select:
             for item in select:
@@ -78,14 +79,17 @@ class Functions:
                 total = valor.sum()
                 total = format_currency(total, 'BRL', locale='pt_BR')
                 df_entrada.loc[len(df_entrada.index)] = ['Total', '', total]
-                with col1:
+                with colun2:
                     st.subheader('Entrada')
+                with col1:
+
                     st.markdown(df_entrada.style.hide(axis="index").to_html(), unsafe_allow_html=True)
 
             if saida:
                 df_saida = pd.DataFrame(saida, columns=['Descriçao', 'Pagamento', 'Valor'])
-                with col2:
+                with colun4:
                     st.subheader('Saida')
+                with col2:
                     st.markdown(df_saida.style.hide(axis="index").to_html(), unsafe_allow_html=True)
 
     def obter_lancamentos_caixa(self, data):
