@@ -5,7 +5,7 @@ import streamlit as st
 import pandas as pd
 from database import DataBaseMysql
 from functions import Functions
-from collections import Counter
+from collections import Counter, defaultdict
 
 db = DataBaseMysql()
 repo = Functions(db)
@@ -52,6 +52,7 @@ def layout_vendas():
         inputs = {}
         valor_total = 0
         pacotes = []
+        forma_pagamentos = []
         with st.form('Formulario'):
             for reserva in reservas_selecionadas:
 
@@ -99,6 +100,8 @@ def layout_vendas():
                     else:
                         pacotes.append(pacote)
 
+                    forma_pagamentos.append(pagamento)
+
                     if telefone != '':
                         repo.update_telefone(telefone, id_cliente)
 
@@ -106,9 +109,16 @@ def layout_vendas():
 
                     repo.update_foto_reserva(pacote, id_reserva)
 
-                contador = Counter(pacotes)
-                resultado = ' + '.join(f'{v} {k}' for k, v in contador.items())
-                st.write(resultado)
+                dicionario = defaultdict(list)
+
+                for item, forma_pg in zip(pacotes, forma_pagamentos):
+                    dicionario[forma_pg].append(item)
+
+                for forma_pg, lista in dicionario.items():
+                    contador = Counter(lista)
+                    descricao = ' + '.join(f'{v} {k}' for k, v in contador.items())
+                    print(f"'{descricao}' pagamento {forma_pg}")
+
 
                 repo.insert_click_caixa(data, 'ENTRADA', f'{resultado} do titular {titular_reserva}', pagamento, valor_total)
                 st.success('Pagamento Lançado')
