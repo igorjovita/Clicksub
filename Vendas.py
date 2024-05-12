@@ -123,7 +123,7 @@ def layout_vendas():
                 #repo.insert_click_caixa(data, 'ENTRADA', f'{resultado} do titular {titular_reserva}', pagamento, valor_total)
                 st.success('Pagamento Lançado')
 
-                st.session_state.botao = False
-
-                time.sleep(1.5)
-                st.rerun()
+                # st.session_state.botao = False
+                #
+                # time.sleep(1.5)
+                # st.rerun()
