@@ -57,9 +57,23 @@ class Functions:
 
     def planilha_caixa_entrada_saida(self, data):
         select = self.obter_lancamentos_caixa(data)
+        entrada = []
+        saida = []
         if select:
-            df = pd.DataFrame(select, columns=['Movimento', 'Descriçao', 'Pagamento', 'Valor'])
-            st.markdown(df.style.hide(axis="index").to_html(), unsafe_allow_html=True)
+            for item in select:
+                if item[0] == 'ENTRADA':
+                    entrada.append(item)
+                else:
+                    saida.append(item)
+            if entrada:
+                df_entrada = pd.DataFrame(entrada, columns=['Movimento', 'Descriçao', 'Pagamento', 'Valor'])
+                st.subheader('Entrada')
+                st.markdown(df_entrada.style.hide(axis="index").to_html(), unsafe_allow_html=True)
+
+            if saida:
+                df_saida = pd.DataFrame(saida, columns=['Movimento', 'Descriçao', 'Pagamento', 'Valor'])
+                st.subheader('Saida')
+                st.markdown(df_saida.style.hide(axis="index").to_html(), unsafe_allow_html=True)
 
     def obter_lancamentos_caixa(self, data):
         query = """
@@ -69,7 +83,7 @@ class Functions:
             CASE WHEN forma_pg IS NULL THEN '' ELSE forma_pg END,
             CASE WHEN valor IS NULL THEN '' ELSE CONCAT('R$ ', FORMAT(valor, 2, 'de_DE')) END
         FROM click_caixa WHERE data = %s"""
-        params = (data, )
+        params = (data,)
 
         return self.db.execute_query(query, params)
 
