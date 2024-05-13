@@ -90,7 +90,7 @@ class Functions:
 
                     st.markdown(df_saida.style.hide(axis="index").to_html(), unsafe_allow_html=True)
         else:
-            st.error(f'Sem lançamentos no caixa no dia {data.strftime('%d/%m/%Y')}')
+            st.error(f"Sem lançamentos no caixa no dia {data.strftime('%d/%m/%Y')}")
 
     def obter_lancamentos_caixa(self, data):
         query = """
