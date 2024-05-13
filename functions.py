@@ -61,14 +61,22 @@ class Functions:
         select = self.obter_lancamentos_caixa(data)
         entrada = []
         saida = []
+        entrada_dinheiro = 0
+        saida_dinheiro = 0
         col1, col2 = st.columns(2)
         if select:
             for item in select:
                 if item[0] == 'ENTRADA':
                     entrada.append((item[1], item[2], item[3]))
+                    if item[2] == 'Dinheiro':
+                        entrada_dinheiro += int(item[3])
                 else:
                     saida.append((item[1], item[2], item[3]))
+                    if item[2] == 'Dinheiro':
+                        saida_dinheiro += int(item[3])
 
+            saldo = entrada_dinheiro - saida_dinheiro
+            st.subheader(f"Saldo em caixa {format_currency(saldo, 'BRL', locale='pt_BR')}")
             if entrada:
 
                 df_entrada = pd.DataFrame(entrada, columns=['Descriçao', 'Pagamento', 'Valor'])
