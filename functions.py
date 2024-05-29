@@ -203,6 +203,8 @@ class Functions:
     def update_telefone(self, telefone, id_cliente):
         query = "UPDATE cliente set telefone = %s where id = %s"
 
+        
+
         params = (telefone, id_cliente)
 
         return self.db.execute_query(query, params)
