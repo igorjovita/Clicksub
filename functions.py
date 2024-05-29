@@ -130,20 +130,22 @@ class Functions:
 
         return self.db.execute_query(query, params)
 
-    def select_planilha_acqua(self, data):
+    def select_info_clientes(self, data):
 
         query = """
         SELECT 
-            c.id, 
-            r.id, 
             c.nome, 
             c.telefone, 
-            v.nome, 
+            v.apelido, 
             r.tipo, 
-            r.fotos 
-        from reserva as r  
+            r.fotos,
+            cp.forma_pg,
+            cp.valor
+        from reserva as r
+        JOIN click_pagamentos as cp ON r.id = cp.id_reserva  
         JOIN cliente as c on r.id_cliente = c.id 
         JOIN vendedores as v ON r.id_vendedor = v.id 
+        
         where r.data = %s """
 
         params = (data,)
@@ -203,7 +205,7 @@ class Functions:
     def update_telefone(self, telefone, id_cliente):
         query = "UPDATE cliente set telefone = %s where id = %s"
 
-        
+
 
         params = (telefone, id_cliente)
 
