@@ -70,7 +70,7 @@ class Functions:
 
                 else:
                     saida.append((item[1], item[2], item[3]))
-                    
+
             if entrada:
 
                 df_entrada = pd.DataFrame(entrada, columns=['Descriçao', 'Pagamento', 'Valor'])
@@ -83,14 +83,16 @@ class Functions:
                 with col1:
                     st.markdown("<h3 style='text-align: center;'>Entradas</h3>", unsafe_allow_html=True)
 
-                    st.markdown(df_entrada.style.hide(axis="index").to_html(), unsafe_allow_html=True)
+                    st.table(df_entrada)
+                    # st.markdown(df_entrada.style.hide(axis="index").to_html(), unsafe_allow_html=True)
 
             if saida:
                 df_saida = pd.DataFrame(saida, columns=['Descriçao', 'Pagamento', 'Valor'])
                 with col2:
                     st.markdown("<h3 style='text-align: center;'>Saidas</h3>", unsafe_allow_html=True)
 
-                    st.markdown(df_saida.style.hide(axis="index").to_html(), unsafe_allow_html=True)
+                    st.table(df_saida)
+                    # st.markdown(df_saida.style.hide(axis="index").to_html(), unsafe_allow_html=True)
         else:
             st.error(f"Sem lançamentos no caixa no dia {data.strftime('%d/%m/%Y')}")
 
@@ -194,7 +196,7 @@ class Functions:
             st.session_state.df_state['Selecionar']].index.tolist()
 
     def update_telefone(self, telefone, id_cliente):
-        query = "UPDATE reserva set telefone = %s where id_cliente = %s"
+        query = "UPDATE cliente set telefone = %s where id_cliente = %s"
 
         params = (telefone, id_cliente)
 
