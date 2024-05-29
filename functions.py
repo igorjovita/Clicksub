@@ -144,7 +144,7 @@ class Functions:
         from reserva as r 
         JOIN cliente as c on r.id_cliente = c.id 
         JOIN vendedores as v ON r.id_vendedor = v.id 
-        JOIN click_pagamentos as cp ON r.id = cp.id_reserva 
+        LEFT JOIN click_pagamentos as cp ON r.id = cp.id_reserva 
         where r.data = %s """
 
         params = (data,)
