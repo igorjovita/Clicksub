@@ -17,5 +17,5 @@ def tela_info_clientes():
         info = repo.select_info_clientes(data)
 
         df = pd.DataFrame(info, columns=['Nome', 'Telefone', 'Vendedor', 'Tipo', 'Pacote', 'Forma Pg', 'Valor'])
-        df['Valor'] = format_currency(int(df['Valor']), 'BRL', locale='pt_BR')
+        st.write(df['Valor'])
         st.table(df)
