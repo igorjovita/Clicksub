@@ -80,19 +80,19 @@ class Functions:
                 total = valor.sum()
                 total = format_currency(total, 'BRL', locale='pt_BR')
                 df_entrada.loc[len(df_entrada.index)] = ['Total', '', total]
-                with col1:
-                    st.markdown("<h3 style='text-align: center;'>Entradas</h3>", unsafe_allow_html=True)
 
-                    st.table(df_entrada)
+                st.markdown("<h3 style='text-align: center;'>Entradas</h3>", unsafe_allow_html=True)
+
+                st.table(df_entrada)
                     # st.markdown(df_entrada.style.hide(axis="index").to_html(), unsafe_allow_html=True)
 
             if saida:
                 df_saida = pd.DataFrame(saida, columns=['Descriçao', 'Pagamento', 'Valor'])
-                with col2:
-                    st.markdown("<h3 style='text-align: center;'>Saidas</h3>", unsafe_allow_html=True)
+                
+                st.markdown("<h3 style='text-align: center;'>Saidas</h3>", unsafe_allow_html=True)
 
-                    st.table(df_saida)
-                    # st.markdown(df_saida.style.hide(axis="index").to_html(), unsafe_allow_html=True)
+                st.table(df_saida)
+                # st.markdown(df_saida.style.hide(axis="index").to_html(), unsafe_allow_html=True)
         else:
             st.error(f"Sem lançamentos no caixa no dia {data.strftime('%d/%m/%Y')}")
 
