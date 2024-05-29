@@ -66,7 +66,7 @@ def layout_vendas():
 
                 with col1:
                     input_telefone = st.text_input('Telefone', value=telefone, key=f'{nome} - tel')
-                    pagamento = st.selectbox('Forma Pagamento', ['Dinheiro', 'Pix', 'Debito'], index=None,
+                    pagamento = st.selectbox('Forma Pagamento', ['Dinheiro', 'Pix', 'Debito', 'Credito'], index=None,
                                              key=f'{nome} - pag')
                 with col2:
                     pacote = st.selectbox('Pacotes', ['FOTO 5', 'FOTO 10', 'VIDEO', 'FOTO + VIDEO'], index=None,
