@@ -52,7 +52,12 @@ class Functions:
 
     def select_titular(self, data):
 
-        query = "SELECT id_cliente, nome_cliente from reserva where data = %s and id_cliente = id_titular"
+        query = """SELECT 
+        r.id_cliente,
+        c.nome 
+        from reserva  as r
+        JOIN cliente as c ON c.id = r.id_cliente
+        where data = %s and id_cliente = id_titular"""
         params = (data,)
 
         return self.db.execute_query(query, params)
